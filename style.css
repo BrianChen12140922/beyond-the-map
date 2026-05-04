@@ -1,0 +1,5861 @@
+/* ================================================================
+   BEYOND THE MAP — style.css
+   Design System v1.0 — Hong Kong Hidden Nature Myths
+   
+   TABLE OF CONTENTS
+   ─────────────────────────────────────────────────────────────
+   00. CSS Custom Properties (Design Tokens)
+   01. Reset & Base
+   02. Typography Utilities
+   03. Atmospheric Layers (Grain, Vignette, Fog)
+   04. Skip Link & Focus Styles (Accessibility)
+   05. Container & Layout
+   06. Bento Grid System
+   07. Navigation
+   08. Hero Section
+   09. Dragon Vein Scrollytelling Section
+   10. Bento Myths Preview Section
+   11. Card / Bento Tile Components
+   12. Tile Image Placeholders (gradient stand-ins)
+   13. Buttons
+   14. Region Quick-Nav (Horizontal Scroll)
+   15. Featured Quote Section
+   16. Footer
+   17. CSS Animations (keyframes)
+   18. Responsive Breakpoints
+   19. Reduced Motion Overrides
+================================================================ */
+
+
+/* ================================================================
+   00 · CSS CUSTOM PROPERTIES — Design System §1.4, §2.3, §3.1–3.5
+================================================================ */
+:root {
+  /* ── Ink scale (Earth / background) ── */
+  --ink-950: #06090A;
+  --ink-900: #0B0F0E;
+  --ink-800: #111715;
+  --ink-700: #1A2220;
+  --ink-600: #242E2B;
+  --ink-500: #36433F;
+
+  /* ── Jade (Wood / primary accent) ── */
+  --jade-50:  #E8F3EE;
+  --jade-200: #9FD4B7;
+  --jade-400: #5BAE82;
+  --jade-500: #2E9466;
+  --jade-600: #1F6B49;
+  --jade-glow: rgba(91, 174, 130, 0.35);
+
+  /* ── Brass (Metal / sacred accent) ── */
+  --brass-300: #E0C081;
+  --brass-500: #B8924A;
+  --brass-700: #7A5F2E;
+  --brass-glow: rgba(184, 146, 74, 0.4);
+
+  /* ── Mist (text) ── */
+  --mist-50:  #F5F2EB;
+  --mist-200: #D8D2BF;
+  --mist-400: #928C7A;
+  --mist-600: #5A5650;
+
+  /* ── Water (teal) ── */
+  --teal-700: #0F2730;
+  --teal-500: #1B4D5E;
+
+  /* ── Sacred reserve (Fire — use ≤1× per page) ── */
+  --cinnabar: #B53A2E;
+
+  /* ── Semantic aliases ── */
+  --bg:           var(--ink-900);
+  --bg-elevated:  var(--ink-800);
+  --text:         var(--mist-50);
+  --text-muted:   var(--mist-200);
+  --text-faint:   var(--mist-400);
+  --accent:       var(--jade-500);
+  --accent-sacred: var(--brass-500);
+  --border:       var(--ink-600);
+
+  /* ── Type scale (fluid / clamp-based) §2.3 ── */
+  --t-display-xl: clamp(3.5rem, 2rem + 7vw, 8rem);
+  --t-display-l:  clamp(2.5rem, 1.5rem + 4.5vw, 5rem);
+  --t-display-m:  clamp(2rem, 1.4rem + 3vw, 3.5rem);
+  --t-h1:         clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  --t-h2:         clamp(1.375rem, 1rem + 1.6vw, 2rem);
+  --t-h3:         1.375rem;
+  --t-body-l:     1.125rem;
+  --t-body:       1rem;
+  --t-caption:    0.875rem;
+  --t-micro:      0.75rem;
+
+  /* ── Line-height tokens ── */
+  --lh-tight:   1.05;
+  --lh-display: 1.1;
+  --lh-heading: 1.25;
+  --lh-body:    1.65;
+  --lh-loose:   1.85;
+
+  /* ── Spacing scale (8pt base) §3.1 ── */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-5:  1.5rem;
+  --s-6:  2rem;
+  --s-7:  3rem;
+  --s-8:  4rem;
+  --s-9:  6rem;
+  --s-10: 8rem;
+  --s-11: 12rem;
+  --s-12: 16rem;
+
+  /* ── Border-radius scale §3.5 ── */
+  --r-sm:     6px;
+  --r-md:     12px;
+  --r-lg:     18px;
+  --r-xl:     28px;
+  --r-circle: 9999px;
+
+  /* ── Motion tokens (mirrors JS motion-tokens) §4.2 ── */
+  --ease-organic:    cubic-bezier(0.6, 0.01, 0.05, 0.95);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ── Nav dimensions ── */
+  --nav-h: 72px;
+}
+
+
+/* ================================================================
+   01 · RESET & BASE
+================================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Smooth scroll for anchor links (Lenis overrides this in JS) */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+
+  /* Design System §2.1 — Manrope for body/UI text */
+  font-family: 'Manrope', sans-serif;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+
+  /* Prevent horizontal overflow from pinned sections */
+  overflow-x: hidden;
+
+  /* Ensure body itself never goes pure black */
+  min-height: 100vh;
+  max-width: 100%;
+}
+
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+/* Naked lists used for nav/footer menus */
+ul, ol {
+  list-style: none;
+}
+
+/* Images fill their containers cleanly */
+img, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inherit fonts in form elements */
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* Remove default button styling */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Anchors inherit color by default */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Paragraph spacing within content blocks */
+p + p {
+  margin-top: var(--s-4);
+}
+
+
+/* ================================================================
+   02 · TYPOGRAPHY UTILITIES — Design System §2.4–2.6
+================================================================ */
+
+/* ── Fraunces variable axis presets ── */
+.display-organic {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'wght' 400;
+  /* SOFT 100 = maximally rounded, evokes hand-carved stone */
+}
+
+.display-sharp {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 0, 'wght' 600;
+  /* SOFT 0 = scholarly sharp serifs */
+}
+
+.display-italic {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-variation-settings: 'opsz' 144, 'SOFT' 50, 'wght' 400;
+  /* For myth quotations and pull-quotes */
+}
+
+/* ── Eyebrow / kicker — JetBrains Mono, brass, spaced caps ── */
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: var(--t-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass-500);
+  line-height: var(--lh-loose);
+}
+
+/* ── Bilingual heading pattern (Design System §2.6) ── */
+.bilingual-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.bilingual-heading .latin {
+  font-family: 'Fraunces', serif;
+}
+
+.bilingual-heading .chinese {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.85em;
+  color: var(--brass-500);
+  font-weight: 900;
+}
+
+/* ── Section headline (display-sharp size) ── */
+.section-headline {
+  font-size: var(--t-display-l);
+  letter-spacing: -0.02em;
+  line-height: var(--lh-display);
+  color: var(--mist-50);
+}
+
+/* ── Section header layout ── */
+.section-header {
+  padding-block: var(--s-9) var(--s-7);
+}
+
+.section-header .eyebrow {
+  margin-bottom: var(--s-4);
+}
+
+.section-lead {
+  font-family: 'Manrope', sans-serif;
+  font-size: var(--t-body-l);
+  color: var(--mist-200);
+  max-width: 52ch;
+  line-height: var(--lh-body);
+  margin-top: var(--s-5);
+}
+
+/* ── Caption / metadata style ── */
+.caption, .panel-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  color: var(--mist-400);
+}
+
+
+/* ================================================================
+   03 · ATMOSPHERIC LAYERS — Design System §3.6
+================================================================ */
+
+/* ── Layer 0: Noise Grain (fixed, z:9999) ── */
+.grain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+}
+
+/* ── Layer 1: Vignette (fixed radial gradient, z:9998) ── */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 40%,
+    rgba(6, 9, 10, 0.30) 100%
+  );
+}
+
+
+/* ================================================================
+   04 · SKIP LINK & FOCUS — Design System §10
+================================================================ */
+
+/* Skip-to-content for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--s-5);
+  padding: var(--s-3) var(--s-5);
+  background: var(--jade-500);
+  color: var(--ink-900);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: var(--t-body);
+  border-radius: var(--r-md);
+  z-index: 10000;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: var(--s-5);
+}
+
+/* Universal focus-visible ring (Design System §10.6) */
+:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 4px;
+  border-radius: var(--r-sm);
+}
+
+/* Remove default outline when focus-visible is available */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* ================================================================
+   05 · CONTAINER & LAYOUT — Design System §3.3
+================================================================ */
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 4rem);
+}
+
+.container--narrow { max-width: 880px; }
+.container--wide   { max-width: 1680px; }
+.container--bleed  { max-width: 100%; padding-inline: 0; }
+
+
+/* ================================================================
+   06 · BENTO GRID SYSTEM — Design System §3.4
+================================================================ */
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+  gap: var(--s-5);
+  padding-bottom: var(--s-9);
+}
+
+/* ── Tile size variants ── */
+.bento-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  /* Initial state for clip-path reveal (GSAP sets this in JS) */
+}
+
+/* Feature: the hero tile — takes up most space */
+.bento-tile--feature { grid-column: span 7; grid-row: span 2; }
+
+/* Tall: balances the feature tile */
+.bento-tile--tall    { grid-column: span 5; grid-row: span 2; }
+
+/* Wide: full width-ish for important items */
+.bento-tile--wide    { grid-column: span 8; grid-row: span 1; }
+
+/* Square: compact visual tile */
+.bento-tile--square  { grid-column: span 4; grid-row: span 1; }
+
+/* Narrow: thinnest supporting tile */
+.bento-tile--narrow  { grid-column: span 3; grid-row: span 1; }
+
+/* ── Responsive bento collapse ── */
+@media (max-width: 1023px) {
+  .bento-tile--feature,
+  .bento-tile--tall   { grid-column: span 12; grid-row: span 1; }
+  .bento-tile--wide   { grid-column: span 12; }
+  .bento-tile--square { grid-column: span 6; }
+  .bento-tile--narrow { grid-column: span 6; }
+}
+
+@media (max-width: 639px) {
+  /* All tiles full-width on mobile */
+  .bento-tile { grid-column: span 12 !important; }
+}
+
+
+/* ================================================================
+   07 · NAVIGATION — Design System §6.2
+================================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-h);
+
+  /* Glass morphism: ink with blur — §6.2 */
+  background: rgba(11, 15, 14, 0.6);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+
+  border-bottom: 1px solid var(--ink-600);
+
+  /* Will-change for GPU layer promotion (smooth hide/show animation) */
+  will-change: transform;
+  transition: transform 0.4s var(--ease-organic),
+              background 0.4s var(--ease-organic);
+}
+
+/* Backdrop-filter fallback — must live OUTSIDE any rule block */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav { background: var(--ink-800); }
+}
+
+/* Nav hidden state (added by JS on scroll-down) */
+.nav.is-hidden {
+  transform: translateY(-100%);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: var(--s-6);
+}
+
+/* ── Logo / Wordmark ── */
+.nav__logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.nav__logo-latin {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'wght' 600;
+  font-size: 1.125rem;
+  color: var(--mist-50);
+  letter-spacing: -0.01em;
+}
+
+.nav__logo-chinese {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: var(--brass-500);
+  letter-spacing: 0.05em;
+}
+
+/* ── Nav links ── */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+}
+
+.nav__link {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mist-200);
+  text-decoration: none;
+  position: relative;
+  padding-block: var(--s-2);
+  transition: color 0.3s var(--ease-organic);
+}
+
+/* Active link underline dot */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 1px;
+  background: var(--brass-500);
+  transition: transform 0.35s var(--ease-emphasized);
+  transform-origin: center;
+}
+
+.nav__link:hover {
+  color: var(--mist-50);
+}
+
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav__link.is-active {
+  color: var(--mist-50);
+}
+
+/* ── Nav actions (right side) ── */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-shrink: 0;
+}
+
+/* ── Language toggle pill ── */
+.nav__lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-4);
+  border: 1px solid var(--brass-500);
+  border-radius: var(--r-circle);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  color: var(--brass-300);
+  transition: background 0.3s var(--ease-organic),
+              border-color 0.3s var(--ease-organic);
+}
+
+.nav__lang-toggle:hover {
+  background: rgba(184, 146, 74, 0.12);
+  border-color: var(--brass-300);
+}
+
+.lang-opt { color: var(--mist-400); }
+.lang-opt--active { color: var(--brass-300); }
+.lang-sep { color: var(--mist-600); }
+
+/* ── Language swap (works with main.js §16 · Language Toggle) ──
+   Two coexisting patterns supported:
+   1. Flat pattern  — an element carries BOTH data-en and data-zh
+      attributes; main.js rewrites its textContent on toggle.
+   2. Sibling pattern — a parent contains two children, one with
+      data-en only and one with data-zh only; the inactive child is
+      hidden via the rules below. The :not() guards keep flat-pattern
+      elements visible regardless of the active language. */
+[data-lang="zh-Hant"] [data-en]:not([data-zh]) { display: none; }
+[data-lang="en"]      [data-zh]:not([data-en]) { display: none; }
+
+/* ── Hamburger (mobile) ── */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--s-2);
+}
+
+.nav__hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--mist-200);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Mobile-nav threshold raised from 767px → 899px so the hamburger
+   appears in tablet portrait too. The drawer that replaces the
+   inline links is implemented by main.js §18 + style.css §18. */
+@media (max-width: 899px) {
+  :root { --nav-h: 60px; }
+  .nav__links { display: none; }
+  .nav__hamburger { display: flex; }
+}
+
+
+/* ================================================================
+   08 · HERO SECTION — Design System §5.1
+================================================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* Push content below nav */
+  padding-top: var(--nav-h);
+}
+
+/* ── Three.js canvas (absolute fill, behind content) ── */
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Background layer (gradient + mountain SVG) ── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* SVG mountain silhouette fills the hero */
+.hero-mountains {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Animated fog band (Layer 2 atmospheric) ── */
+.hero-fog {
+  position: absolute;
+  inset: 0;
+  /* Two overlapping fog gradients at different speeds (animation staggered via CSS) */
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(15, 39, 48, 0.18) 35%,
+      rgba(27, 77, 94, 0.22) 50%,
+      rgba(15, 39, 48, 0.18) 65%,
+      transparent 100%
+    );
+  animation: fogDrift 28s linear infinite;
+  pointer-events: none;
+}
+
+/* Second fog layer, opposite drift direction */
+.hero-fog::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(27, 77, 94, 0.12) 40%,
+      rgba(27, 77, 94, 0.18) 55%,
+      transparent 100%
+    );
+  animation: fogDriftReverse 40s linear infinite;
+}
+
+/* ── Scroll-out scrim (GSAP animates opacity 0 → 0.65) ── */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--ink-950);
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ── Hero content: centered column ── */
+.hero-content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--s-5);
+
+  /* Ensure text is readable over background */
+  padding-inline: var(--s-6);
+}
+
+/* ── Eyebrow ── (opacity managed by GSAP — no CSS declarations needed here) */
+
+/* ── Main title: the split-char animated headline ── */
+.hero-title {
+  font-size: var(--t-display-xl);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.03em;
+  color: var(--mist-50);
+  max-width: 14ch;
+
+  /* Splitting.js wraps chars — overflow hidden clips the blur slide-up */
+  overflow: hidden;
+}
+
+/* Each character span created by Splitting.js */
+.hero-title .word {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.hero-title .char {
+  display: inline-block;
+  /* Initial state set by GSAP — opacity:0, y:60, blur:20px */
+  will-change: transform, opacity, filter;
+}
+
+/* ── Chinese display subtitle ── */
+.hero-title-chinese {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 1rem + 3vw, 3.5rem);
+  letter-spacing: 0.12em;
+  color: var(--brass-300);
+  line-height: 1;
+  /* Opacity managed by GSAP — no CSS opacity:0 so it degrades gracefully */
+}
+
+/* ── Subtitle ── */
+.hero-subtitle {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.8rem + 0.8vw, 1.25rem);
+  color: var(--mist-200);
+  line-height: var(--lh-body);
+  max-width: 50ch;
+  /* Opacity managed by GSAP — no CSS opacity:0 */
+}
+
+/* ── CTA pair ── */
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  justify-content: center;
+  /* Opacity managed by GSAP — no CSS opacity:0 */
+}
+
+/* ── Scroll indicator ── */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: var(--s-8);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  /* Opacity managed by GSAP — no CSS opacity:0 */
+}
+
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 0; /* GSAP grows this from 0 to 32px */
+  background: var(--brass-500);
+  animation: scrollLinePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  /* Animation only starts after GSAP sets height:32px */
+}
+
+.scroll-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist-400);
+}
+
+
+/* ================================================================
+   09 · DRAGON VEIN SCROLLYTELLING — Design System §5.1
+================================================================ */
+
+/* Outer container is 300vh — ScrollTrigger triggers here */
+.dragon-vein-section {
+  position: relative;
+  padding-block: var(--s-7);
+  overflow: visible;
+  overflow-x: clip;
+  background: var(--ink-950);
+}
+
+.dragon-vein-sticky {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+  align-items: stretch;
+  padding: 0 var(--s-3);
+}
+
+/* ── Section header ── */
+.dv-header {
+  grid-column: 1 / -1;
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  text-align: center;
+  z-index: 5;
+  pointer-events: auto;
+  width: auto;
+  margin-inline: auto;
+  margin-bottom: var(--s-5);
+}
+
+.dv-header .section-headline {
+  font-size: var(--t-display-m);
+  justify-content: center;
+  margin-block: var(--s-3) var(--s-4);
+}
+
+.dv-header__sub {
+  color: var(--mist-400);
+  font-size: var(--t-body);
+  max-width: 48ch;
+  margin-inline: auto;
+}
+
+/* ── SVG Topo Map ── */
+.topo-map-frame {
+  position: relative;
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-bottom: var(--s-4);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  border: 1px solid rgba(216, 210, 191, 0.1);
+  border-radius: var(--r-md);
+  background: var(--ink-950);
+  scrollbar-color: rgba(224, 192, 129, 0.7) rgba(216, 210, 191, 0.1);
+  -webkit-overflow-scrolling: touch;
+}
+
+.topo-map {
+  position: relative;
+  display: block;
+  width: max(68rem, 100%);
+  max-width: none;
+  height: 38rem;
+  min-height: 38rem;
+  z-index: 1;
+  background: var(--ink-950);
+  opacity: 1;
+  will-change: opacity, transform;
+}
+
+/* Dragon vein path — stroke-dashoffset animated by GSAP */
+.vein-path {
+  /* stroke-dasharray and stroke-dashoffset are set in main.js
+     after measuring getTotalLength() */
+  stroke-width: 4;
+  will-change: stroke-dashoffset;
+}
+
+/* Pin markers — scaled to 0 initially, GSAP scales in */
+.pin-marker {
+  transform-origin: center;
+  transform-box: fill-box;
+  /* Scale set to 0 by GSAP, then animated in on scroll */
+}
+
+/* ── Pulsing ring on each pin (CSS looping animation) ── */
+.pin-ring {
+  r: 24px;
+  stroke-width: 1.5;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: pinPulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  /* Only visible after GSAP reveals the pin */
+}
+
+.pin-dot {
+  r: 8px;
+}
+
+/* SVG text labels on pins */
+.pin-label-en {
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  fill: var(--mist-50);
+  font-weight: 500;
+}
+
+.pin-label-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 16px;
+  fill: var(--brass-300);
+  font-weight: 600;
+}
+
+.pin-label-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  fill: var(--brass-500);
+  letter-spacing: 0.05em;
+}
+
+/* ── Story Panels ── */
+.dv-panel {
+  position: relative;
+  right: auto;
+  top: auto;
+  transform: none;
+  z-index: 10;
+
+  width: 100%;
+  padding: var(--s-5);
+  margin-bottom: var(--s-4);
+
+  background: rgba(17, 23, 21, 0.36);
+  border: 1px solid rgba(216, 210, 191, 0.09);
+  border-top: 2px solid rgba(184, 146, 74, 0.72);
+  border-radius: var(--r-sm);
+
+  opacity: 1;
+}
+
+.dv-panel .eyebrow {
+  margin-bottom: var(--s-2);
+}
+
+.dv-panel .bilingual-heading {
+  display: block;
+  font-size: clamp(1.15rem, 1rem + 0.45vw, 1.45rem);
+  margin-bottom: var(--s-2);
+  line-height: var(--lh-heading);
+}
+
+.dv-panel p {
+  font-size: 0.9rem;
+  color: var(--mist-200);
+  line-height: 1.5;
+}
+
+.panel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid rgba(216, 210, 191, 0.1);
+  color: var(--mist-400);
+  font-size: var(--t-micro);
+}
+
+/* ── Closing caption ── */
+.closing-caption {
+  grid-column: 1 / -1;
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  z-index: 10;
+
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-variation-settings: 'opsz' 144, 'SOFT' 50, 'wght' 400;
+  font-size: var(--t-h3);
+  color: var(--brass-300);
+  text-align: center;
+  white-space: normal;
+  margin-top: var(--s-4);
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .hero {
+    min-height: 560px;
+    height: 100svh;
+  }
+
+  .hero-content {
+    padding-inline: var(--s-4);
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    max-width: min(100%, 12ch);
+    letter-spacing: 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    width: min(100%, 18rem);
+    margin-inline: auto;
+  }
+
+  .hero-cta .btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .dragon-vein-section {
+    padding-block: var(--s-7);
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .dragon-vein-sticky {
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+    padding-inline: var(--s-3);
+  }
+
+  .dv-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    transform: none;
+    margin: 0 auto var(--s-5);
+    pointer-events: auto;
+  }
+
+  .dv-header .section-headline {
+    font-size: clamp(2rem, 11vw, 3rem);
+  }
+
+  .topo-map {
+    width: max(68rem, 100%);
+    height: 38rem;
+    min-height: 38rem;
+  }
+
+  .vein-path {
+    stroke-width: 4;
+  }
+
+  .pin-ring {
+    r: 24px;
+    stroke-width: 1.5;
+  }
+
+  .pin-dot {
+    r: 8px;
+  }
+
+  .pin-label-en {
+    font-size: 18px;
+  }
+
+  .pin-label-zh {
+    font-size: 16px;
+  }
+
+  .pin-label-role {
+    font-size: 13px;
+  }
+
+  /* Panels go to bottom on mobile */
+  .dv-panel {
+    position: relative;
+    right: auto;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    padding: var(--s-5);
+    margin-bottom: var(--s-4);
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .panel-meta {
+    flex-wrap: wrap;
+    gap: var(--s-3);
+  }
+
+  .closing-caption {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    margin-top: var(--s-4);
+    white-space: normal;
+    width: auto;
+    font-size: var(--t-body-l);
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .dragon-vein-section {
+    padding-block: var(--s-9);
+  }
+
+  .dragon-vein-sticky {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--s-5);
+    padding: 0 clamp(1rem, 4vw, 4rem);
+  }
+
+  .dv-header {
+    width: min(80vw, 760px);
+    margin-bottom: var(--s-5);
+  }
+
+  .topo-map-frame {
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+
+  .topo-map {
+    width: 100%;
+    height: clamp(31rem, 52vw, 44rem);
+    min-height: 31rem;
+  }
+
+  .vein-path {
+    stroke-width: 2.5;
+  }
+
+  .pin-ring {
+    r: 16px;
+    stroke-width: 1;
+  }
+
+  .pin-dot {
+    r: 5px;
+  }
+
+  .pin-label-en {
+    font-size: 13px;
+  }
+
+  .pin-label-zh {
+    font-size: 11px;
+  }
+
+  .pin-label-role {
+    font-size: 10px;
+  }
+
+  .dv-panel {
+    padding: var(--s-4);
+    margin-bottom: 0;
+  }
+
+  .closing-caption {
+    width: auto;
+    font-size: var(--t-h3);
+    white-space: nowrap;
+  }
+}
+
+
+/* ================================================================
+   10 · BENTO MYTHS PREVIEW SECTION
+================================================================ */
+
+.bento-section {
+  background: var(--bg);
+  padding-bottom: var(--s-11);
+}
+
+
+/* ================================================================
+   11 · CARD / BENTO TILE COMPONENTS — Design System §6.3
+================================================================ */
+
+.card {
+  position: relative;
+  background: var(--ink-800);
+  border: 1px solid var(--ink-600);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+
+  /* Smooth lift + glow on hover */
+  transition:
+    transform    0.5s var(--ease-organic),
+    box-shadow   0.5s ease,
+    border-color 0.5s ease;
+
+  /* Creates a new stacking context for ::after glow border */
+  isolation: isolate;
+}
+
+/* Lift and jade glow on hover */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 80px var(--jade-glow);
+  border-color: var(--jade-400);
+}
+
+/* Image inside card (scales on hover) */
+.tile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+
+  /* Hover scale: slow and cinematic */
+  transition: transform 1.4s var(--ease-emphasized);
+  will-change: transform;
+}
+
+.card:hover .tile-image {
+  transform: scale(1.06);
+}
+
+/* ── Card content overlay (gradient scrim at bottom) ── */
+.card-content {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--s-6);
+  background: linear-gradient(
+    to top,
+    rgba(11, 15, 14, 0.96) 0%,
+    rgba(11, 15, 14, 0.72) 55%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Compact variant for smaller tiles */
+.card-content--compact {
+  padding: var(--s-4);
+}
+
+/* ── Tile typography ── */
+.tile-eyebrow {
+  margin-bottom: var(--s-2);
+  /* Slightly brighter on dark card */
+  color: var(--brass-300);
+}
+
+.tile-title {
+  font-size: clamp(1.1rem, 0.8rem + 1.2vw, 1.6rem);
+  line-height: var(--lh-heading);
+  margin-bottom: var(--s-4);
+  color: var(--mist-50);
+}
+
+.tile-title--sm {
+  font-size: var(--t-body-l);
+}
+
+.tile-excerpt {
+  font-size: var(--t-body);
+  color: var(--mist-200);
+  line-height: var(--lh-body);
+  margin-bottom: var(--s-5);
+  max-width: 44ch;
+
+  /* Clamp to 3 lines — standard max-height approach, no vendor prefixes.
+     The card's gradient scrim (card-content) softens the hard clip visually. */
+  overflow: hidden;
+  max-height: calc(3 * 1.65em); /* 3 lines × --lh-body (1.65) */
+}
+
+.tile-cta {
+  margin-top: var(--s-3);
+}
+
+/* 3D tilt CSS variables set by JS mousemove */
+.card {
+  --tilt-x: 0;
+  --tilt-y: 0;
+  transform-style: preserve-3d;
+}
+
+/* (GSAP handles the actual tilt via inline style) */
+
+
+/* ================================================================
+   12 · TILE IMAGE PLACEHOLDERS — gradient stand-ins for real photos
+   Evocative color washes that match each location's mood
+================================================================ */
+
+/* Nine Dragons — deep teal / ink panorama */
+.tile-image--nine-dragons {
+  background: linear-gradient(
+    145deg,
+    var(--teal-700) 0%,
+    #0D1F28 30%,
+    #0B1A22 60%,
+    var(--ink-950) 100%
+  );
+}
+
+/* Central golden highlight — evoking city lights through haze */
+.tile-image--nine-dragons::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    rgba(184, 146, 74, 0.08) 50%,
+    transparent
+  );
+}
+
+/* Lion Rock — purple-ink, mountain solitude */
+.tile-image--lion-rock {
+  background: linear-gradient(
+    160deg,
+    #0F1018 0%,
+    #16141F 40%,
+    #1A1428 70%,
+    var(--ink-950) 100%
+  );
+}
+
+.tile-image--lion-rock::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(91, 46, 130, 0.12) 0%,
+    transparent 70%
+  );
+}
+
+/* Wong Tai Sin — amber / incense warmth */
+.tile-image--wong-tai-sin {
+  background: linear-gradient(
+    130deg,
+    #1A1208 0%,
+    #221808 35%,
+    #1A140A 65%,
+    var(--ink-950) 100%
+  );
+}
+
+.tile-image--wong-tai-sin::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 40% 55%,
+    rgba(184, 146, 74, 0.18) 0%,
+    transparent 65%
+  );
+}
+
+/* Hungry Ghost — deep cinnabar undertone (one use on this page) */
+.tile-image--hungry-ghost {
+  background: linear-gradient(
+    150deg,
+    #120808 0%,
+    #1A0C0C 50%,
+    var(--ink-950) 100%
+  );
+}
+
+.tile-image--hungry-ghost::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 60% 40%,
+    rgba(181, 58, 46, 0.14) 0%,
+    transparent 60%
+  );
+}
+
+/* Five Elements — jade tones */
+.tile-image--five-elements {
+  background: linear-gradient(
+    160deg,
+    #051210 0%,
+    #091A15 50%,
+    var(--ink-950) 100%
+  );
+}
+
+.tile-image--five-elements::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(46, 148, 102, 0.15) 0%,
+    transparent 65%
+  );
+}
+
+/* Region card image treatments */
+.region-card__img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1.4s var(--ease-emphasized);
+}
+
+.region-card:hover .region-card__img { transform: scale(1.06); }
+
+.region-card__img--maclehose {
+  background-image:
+    linear-gradient(180deg, rgba(6, 9, 10, 0.12), rgba(6, 9, 10, 0.66)),
+    url("assets/images/route-maclehose.jpg");
+  background-position: center;
+}
+.region-card__img--lion-rock {
+  background-image:
+    linear-gradient(180deg, rgba(6, 9, 10, 0.1), rgba(6, 9, 10, 0.7)),
+    url("assets/images/route-lion-rock.jpg");
+  background-position: center;
+}
+.region-card__img--dragons-back {
+  background-image:
+    linear-gradient(180deg, rgba(6, 9, 10, 0.06), rgba(6, 9, 10, 0.68)),
+    url("assets/images/route-dragons-back.jpg");
+  background-position: center;
+}
+.region-card__img--lantau {
+  background-image:
+    linear-gradient(180deg, rgba(6, 9, 10, 0.08), rgba(6, 9, 10, 0.72)),
+    url("assets/images/route-lantau.jpg");
+  background-position: center;
+}
+.region-card__img--cheung-chau {
+  background-image:
+    linear-gradient(180deg, rgba(6, 9, 10, 0.08), rgba(6, 9, 10, 0.7)),
+    url("assets/images/route-cheung-chau.jpg");
+  background-position: center;
+}
+.region-card__img--pat-sin-leng {
+  background-image:
+    linear-gradient(180deg, rgba(6, 9, 10, 0.1), rgba(6, 9, 10, 0.7)),
+    url("assets/images/route-pat-sin-leng.jpg");
+  background-position: center;
+}
+.region-card__img--sunset-peak {
+  background-image:
+    linear-gradient(180deg, rgba(6, 9, 10, 0.08), rgba(6, 9, 10, 0.72)),
+    url("assets/images/route-sunset-peak.jpg");
+  background-position: center;
+}
+
+
+/* ================================================================
+   13 · BUTTONS — Design System §6.1
+================================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-6);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: var(--t-body);
+  letter-spacing: 0.04em;
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.4s var(--ease-organic);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ── Primary: jade fill ── */
+.btn--primary {
+  background: var(--jade-500);
+  color: var(--ink-900);
+  border-color: var(--jade-500);
+}
+
+.btn--primary:hover {
+  background: var(--jade-400);
+  border-color: var(--jade-400);
+  box-shadow: 0 12px 40px var(--jade-glow);
+  transform: translateY(-2px);
+}
+
+.btn--primary:active {
+  background: var(--jade-600);
+  transform: translateY(0);
+}
+
+/* ── Ghost: brass outline ── */
+.btn--ghost {
+  background: transparent;
+  color: var(--brass-300);
+  border-color: var(--brass-500);
+}
+
+.btn--ghost:hover {
+  background: rgba(184, 146, 74, 0.1);
+  border-color: var(--brass-300);
+  color: var(--brass-300);
+  transform: translateY(-2px);
+}
+
+/* ── Text: animated underline ── */
+.btn--text {
+  background: none;
+  border: none;
+  color: var(--mist-50);
+  padding: var(--s-2) 0;
+  font-size: var(--t-body);
+  letter-spacing: 0.02em;
+}
+
+.btn--text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--brass-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-emphasized);
+}
+
+.btn--text:hover {
+  color: var(--mist-50);
+}
+
+.btn--text:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* ================================================================
+   14 · REGION QUICK-NAV — Design System §5.1 §5.3
+================================================================ */
+
+.regions-section {
+  /* Slightly darker than the body — user descends into mountain territory */
+  background: var(--ink-950);
+  padding-top: var(--s-10);
+  padding-bottom: var(--s-10);
+  overflow: visible;
+  overflow-x: clip;
+
+  /* Atmospheric radial gradient — faint jade luminescence from center */
+  background-image: radial-gradient(
+    ellipse 120% 60% at 50% 100%,
+    rgba(27, 77, 94, 0.18) 0%,
+    transparent 70%
+  );
+}
+
+/* Brass-tone top hairline separator */
+.regions-section::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--brass-700) 25%,
+    var(--brass-500) 50%,
+    var(--brass-700) 75%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  margin-bottom: 0;
+}
+
+/* ── Section heading: more cinematic, open tracking ── */
+.regions-section .section-headline {
+  /* Open up the Latin title — airy and monumental */
+  letter-spacing: 0.04em;
+
+  /* Dual-layer text glow: warm jade halo + distant brass warmth */
+  text-shadow:
+    0 0 40px rgba(91, 174, 130, 0.22),
+    0 0 100px rgba(184, 146, 74, 0.10);
+}
+
+/* The Chinese subtitle also gets a gentle jade glow */
+.regions-section .section-headline .chinese {
+  text-shadow:
+    0 0 30px rgba(184, 146, 74, 0.30),
+    0 0 70px rgba(184, 146, 74, 0.12);
+}
+
+.regions-section .section-header {
+  padding-bottom: var(--s-5);
+}
+
+/* Route wall wrapper */
+.regions-track-wrapper {
+  overflow: visible;
+}
+
+/* Full route wall: all seven cards remain visible without horizontal dragging. */
+.regions-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(0.875rem, 1.4vw, 1.35rem);
+  width: 100%;
+  max-width: 1680px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 4rem);
+  overflow: visible;
+}
+
+.regions-track::-webkit-scrollbar { display: none; }
+
+/* ── Region card ── */
+.region-card {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  height: clamp(300px, 32vw, 430px);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+
+  /* ── Glassmorphism base ──
+     Semi-transparent fill so the section's atmospheric gradient
+     bleeds through, giving depth between cards. */
+  background: rgba(17, 23, 21, 0.55);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+
+  /* Glass edge: faint white highlight (like light catching a pane)
+     plus a hairline jade-tinted border */
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),  /* top highlight */
+    0 8px 32px rgba(6, 9, 10, 0.5);            /* resting shadow */
+
+  /* Transitions for transform, shadow, and the ::before glow overlay */
+  transition:
+    transform    0.55s var(--ease-organic),
+    box-shadow   0.55s var(--ease-organic),
+    border-color 0.55s var(--ease-organic);
+
+  /* New stacking context for ::before glow layer */
+  isolation: isolate;
+}
+
+/* ── Glow border layer (pseudo-element technique) ──
+   Fades in on hover — avoids a jarring instant border-color switch */
+.region-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 3;
+  pointer-events: none;
+
+  /* Jade glow ring — organic luminescence, not neon */
+  border: 1px solid var(--jade-400);
+  box-shadow:
+    0 0 18px rgba(91, 174, 130, 0.45),        /* outer jade halo */
+    inset 0 0 18px rgba(91, 174, 130, 0.08);  /* inner frosted tint */
+
+  opacity: 0;
+  transition: opacity 0.55s var(--ease-organic);
+}
+
+.region-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Cinematic hover lift ── */
+.region-card:hover {
+  transform: translateY(-10px);
+
+  /* Layered shadow: tight contact shadow + wide jade atmospheric bloom */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 2px 8px rgba(6, 9, 10, 0.6),
+    0 20px 40px rgba(6, 9, 10, 0.5),
+    0 40px 80px var(--jade-glow);
+}
+
+/* Deepen the gradient scrim a little on hover for drama */
+.region-card:hover .region-card__content {
+  background: linear-gradient(
+    to top,
+    rgba(11, 15, 14, 0.98) 0%,
+    rgba(11, 15, 14, 0.72) 55%,
+    transparent 100%
+  );
+}
+
+/* Card name glows faintly on hover */
+.region-card:hover .region-card__name {
+  text-shadow: 0 0 24px rgba(245, 242, 235, 0.30);
+}
+
+/* ── Card content overlay (glassmorphism-tinted gradient) ── */
+.region-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(1rem, 1.6vw, var(--s-5));
+  z-index: 2;
+
+  /* Frosted ink gradient — deeper than the bento card version,
+     matches the cinematic dark register of this section */
+  background: linear-gradient(
+    to top,
+    rgba(11, 15, 14, 0.97) 0%,
+    rgba(11, 15, 14, 0.65) 55%,
+    transparent 100%
+  );
+  /* Subtle upward blur so the text sits in a soft focus haze */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  transition: background 0.55s var(--ease-organic);
+}
+
+/* ── Card typography ── */
+.region-card__name {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 40, 'wght' 500;
+  font-size: clamp(1.05rem, 1rem + 0.35vw, var(--t-h3));
+  color: var(--mist-50);
+  margin-top: var(--s-2);
+  line-height: var(--lh-heading);
+
+  /* Smooth text-shadow transition */
+  transition: text-shadow 0.55s var(--ease-organic);
+}
+
+.region-card__name-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 0.84rem + 0.2vw, var(--t-body));
+  color: var(--brass-300);
+  margin-top: var(--s-1);
+}
+
+.region-card__teaser {
+  max-width: 28ch;
+  margin-top: var(--s-3);
+  color: var(--mist-200);
+  font-size: clamp(0.78rem, 0.74rem + 0.16vw, var(--t-caption));
+  line-height: 1.45;
+}
+
+@media (min-width: 1500px) {
+  .regions-track {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .region-card {
+    height: clamp(320px, 23vw, 430px);
+  }
+}
+
+@media (max-width: 700px) {
+  .regions-section {
+    padding-top: var(--s-8);
+    padding-bottom: var(--s-8);
+  }
+
+  .regions-track {
+    grid-template-columns: 1fr;
+    max-width: 28rem;
+  }
+
+  .region-card {
+    height: 22rem;
+  }
+}
+
+
+/* ================================================================
+   15 · FEATURED QUOTE SECTION — Design System §5.1
+================================================================ */
+
+.quote-section {
+  background: var(--bg);
+  padding-block: var(--s-11);
+}
+
+/* Brass horizontal rules — GSAP scales from center outward */
+.brass-rule {
+  height: 1px;
+  background: var(--brass-500);
+  transform: scaleX(0);
+  transform-origin: center;
+  margin-block: var(--s-7);
+  opacity: 0.6;
+}
+
+/* Featured blockquote */
+.featured-quote {
+  text-align: center;
+}
+
+.quote-text {
+  font-size: clamp(1.25rem, 0.8rem + 2.2vw, 2rem);
+  line-height: var(--lh-loose);
+  color: var(--mist-50);
+  max-width: 52ch;
+  margin-inline: auto;
+
+  /* Words will be split by Splitting.js for stagger reveal */
+}
+
+/* Individual word spans (created by Splitting.js) */
+.quote-text .word {
+  display: inline-block;
+  will-change: opacity, transform;
+}
+
+.quote-attribution {
+  margin-top: var(--s-6);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: var(--t-caption);
+  letter-spacing: 0.08em;
+  color: var(--mist-400);
+}
+
+
+/* ================================================================
+   16 · FOOTER — Design System §6.4
+================================================================ */
+
+.site-footer {
+  background: var(--ink-950);
+  border-top: 1px solid var(--ink-600);
+  padding-top: var(--s-11);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--s-8);
+  padding-bottom: var(--s-9);
+}
+
+/* ── Footer logo ── */
+.footer__logo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-bottom: var(--s-5);
+  text-decoration: none;
+}
+
+.footer__logo-latin {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'wght' 600;
+  font-size: 1.25rem;
+  color: var(--mist-50);
+  letter-spacing: -0.01em;
+}
+
+.footer__logo-chinese {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: var(--brass-500);
+  letter-spacing: 0.08em;
+}
+
+.footer__tagline {
+  font-size: var(--t-body);
+  color: var(--mist-400);
+  line-height: var(--lh-body);
+  max-width: 32ch;
+  margin-bottom: var(--s-5);
+}
+
+/* Social links */
+.footer__social {
+  display: flex;
+  gap: var(--s-4);
+}
+
+.footer__social-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  color: var(--mist-400);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer__social-link:hover { color: var(--jade-400); }
+
+/* ── Footer column headings ── */
+.footer__col-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: var(--t-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass-500);
+  margin-bottom: var(--s-5);
+}
+
+/* ── Footer nav links ── */
+.footer__link {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: var(--t-body);
+  color: var(--mist-400);
+  padding-block: var(--s-2);
+  transition: color 0.3s;
+}
+
+.footer__link:hover { color: var(--jade-400); }
+
+/* ── Credits text ── */
+.footer__credit-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: var(--t-micro);
+  letter-spacing: 0.05em;
+  color: var(--mist-600);
+  line-height: var(--lh-body);
+  margin-bottom: var(--s-4);
+}
+
+/* ── Copyright strip ── */
+.footer__strip {
+  border-top: 1px solid var(--ink-600);
+  padding-block: var(--s-5);
+}
+
+.footer__copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--mist-600);
+  text-align: center;
+}
+
+/* Responsive footer */
+@media (max-width: 1023px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer__col--brand {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 639px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+    gap: var(--s-7);
+  }
+  .footer__col--brand { grid-column: span 1; }
+}
+
+
+/* ================================================================
+   17 · CSS ANIMATIONS (keyframes)
+================================================================ */
+
+/* Fog drifts right across the hero */
+@keyframes fogDrift {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* Second fog layer drifts left (slower) */
+@keyframes fogDriftReverse {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Scroll indicator line pulses vertically */
+@keyframes scrollLinePulse {
+  0%, 100% { transform: scaleY(1);   opacity: 1;   }
+  50%       { transform: scaleY(0.5); opacity: 0.4; }
+}
+
+/* Pin pulsing ring expands and fades */
+@keyframes pinPulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  70%  { transform: scale(2.2); opacity: 0;   }
+  100% { transform: scale(1);   opacity: 0;   }
+}
+
+/* Subtle breathing glow used on brass dividers */
+@keyframes brassGlow {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1.0; }
+}
+
+
+/* ================================================================
+   18 · RESPONSIVE BREAKPOINTS — Design System §3.2
+   Mobile first. min-width queries only.
+================================================================ */
+
+/* ── Phone-L (480px+) ── */
+@media (min-width: 480px) {
+  .hero-content {
+    padding-inline: var(--s-8);
+  }
+}
+
+/* ── Tablet (768px+) ── */
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 72px;
+  }
+
+  .hero-cta {
+    gap: var(--s-5);
+  }
+}
+
+/* ── Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  /* Show tile excerpt only on desktop where there's room */
+  .bento-tile--narrow .tile-excerpt,
+  .bento-tile--square .tile-excerpt {
+    display: none;
+  }
+
+}
+
+/* ── Wide (1440px+) ── */
+@media (min-width: 1440px) {
+  /* Ensure hero title never overflows at large sizes */
+  .hero-title {
+    max-width: 12ch;
+  }
+}
+
+/* ── Ultrawide (1920px+) ── */
+@media (min-width: 1920px) {
+  .container {
+    /* Already capped at 1440px — prevent runaway line lengths */
+    padding-inline: 4rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dragon-vein-sticky {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dv-header,
+  .topo-map-frame,
+  .closing-caption {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* ================================================================
+   19 · REDUCED MOTION OVERRIDES — Design System §4.4 + §10.2
+   When user prefers reduced motion: reveal everything instantly,
+   kill all animations and transitions.
+================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Kill all CSS animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  /* Instantly reveal any elements that JS may have hidden via gsap.set() */
+  .topo-map,
+  .dv-panel,
+  .closing-caption,
+  .brass-rule {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Reveal all data-reveal scroll elements */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  /* Freeze fog / grain animations */
+  .hero-fog,
+  .hero-fog::after {
+    animation: none;
+  }
+
+  /* Scroll line — show as static bar */
+  .scroll-line {
+    animation: none;
+    height: 32px;
+  }
+
+  /* Pin markers — static, no pulse */
+  .pin-ring {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+
+
+/* ================================================================
+   20 · INTERACTIVE TRAIL MAP
+   Stylised SVG map of Hong Kong with magnetic dashed-flow routes,
+   side panel selector, and floating info card.
+   Adapted from the "Beyond the Map" refined mockup, re-tinted to
+   match this site's ink/brass dark theme.
+================================================================ */
+
+.trail-map-section {
+  position: relative;
+  padding-block: var(--s-6) var(--s-7);
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 30% 15%, rgba(91, 174, 130, 0.12), transparent 32rem),
+    linear-gradient(180deg, var(--ink-900) 0%, var(--ink-950) 100%);
+}
+
+@supports (overflow: clip) {
+  .trail-map-section {
+    overflow-x: clip;
+  }
+}
+
+.trail-map-section .container--wide {
+  padding-inline: var(--s-3);
+}
+
+.trail-map-header {
+  padding-block: 0 var(--s-4);
+}
+
+.trail-map-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  align-items: stretch;
+  max-width: 1240px;
+  margin-inline: auto;
+}
+
+/* ── Side panel — route selector ─────────────────── */
+.route-panel {
+  padding: var(--s-5);
+  border: 1px solid rgba(216, 210, 191, 0.12);
+  border-radius: var(--r-md);
+  background: rgba(17, 23, 21, 0.72);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
+  align-self: start;
+}
+
+.route-panel h3 {
+  margin: 0 0 var(--s-2);
+  color: var(--mist-50);
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  line-height: var(--lh-heading);
+}
+
+.panel-note {
+  margin: 0 0 var(--s-4);
+  color: var(--mist-400);
+  font-size: var(--t-caption);
+  line-height: 1.5;
+}
+
+.route-list-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid rgba(216, 210, 191, 0.08);
+  border-radius: var(--r-circle);
+  background: rgba(11, 15, 14, 0.6);
+  color: var(--mist-200);
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.route-list-item:last-child {
+  margin-bottom: 0;
+}
+
+.route-list-item > span:first-child {
+  flex: 0 0 auto;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: rgba(184, 146, 74, 0.32);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.route-list-item > span:last-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  height: auto;
+}
+
+.route-list-item:hover,
+.route-list-item:focus,
+.route-list-item.is-active {
+  border-color: rgba(224, 192, 129, 0.55);
+  background: rgba(36, 46, 43, 0.92);
+  color: var(--mist-50);
+  transform: translateX(2px);
+  outline: none;
+}
+
+.route-list-item:hover > span:first-child,
+.route-list-item:focus > span:first-child,
+.route-list-item.is-active > span:first-child {
+  background: var(--brass-300);
+  box-shadow: 0 0 12px rgba(224, 192, 129, 0.85);
+}
+
+/* ── Map card — SVG canvas ───────────────────────── */
+.map-card {
+  position: relative;
+  border: 1px solid rgba(216, 210, 191, 0.14);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--ink-900);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.32);
+  min-height: 30rem;
+  transform-origin: center center;
+}
+
+.hk-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1000 / 690;
+}
+
+/* Decorative contour lines */
+.contour {
+  fill: none;
+  stroke: rgba(91, 174, 130, 0.08);
+  stroke-width: 2;
+}
+
+/* Region landmasses */
+.region path,
+.region ellipse {
+  fill: url(#islandFill);
+  stroke: rgba(216, 210, 191, 0.18);
+  stroke-width: 1.5;
+  transition: fill 0.3s ease, filter 0.3s ease;
+}
+
+.region:hover path,
+.region:hover ellipse {
+  fill: url(#islandFillHover);
+  filter: drop-shadow(0 0 18px rgba(15, 39, 48, 0.65));
+}
+
+.region text {
+  fill: rgba(216, 210, 191, 0.55);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(6, 9, 10, 0.85);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.region-kowloon text,
+.region-hki text,
+.region-lantau text {
+  font-size: 17px;
+}
+
+.region-islands text {
+  font-size: 14px;
+}
+
+/* Route labels */
+.route-labels text {
+  fill: var(--brass-300);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  paint-order: stroke;
+  stroke: rgba(6, 9, 10, 0.95);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+/* Magnetic transparent hit areas */
+.route-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 54;
+  stroke-linecap: round;
+  cursor: pointer;
+  transition: stroke-width 0.22s ease;
+}
+
+.route-hit:focus {
+  outline: none;
+}
+
+/* Visible dashed route, brass tone */
+.route-path {
+  fill: none;
+  stroke: rgba(184, 146, 74, 0.55);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 14 12;
+  stroke-dashoffset: 0;
+  pointer-events: none;
+  transition: stroke 0.25s ease, opacity 0.25s ease, stroke-width 0.25s ease;
+}
+
+/* Whole map hover lifts route visibility */
+.map-card:hover .route-path {
+  opacity: 0.78;
+}
+
+/* Active hovered route — bright brass + glow + rolling dashes */
+.route-path.is-active,
+.routes .route-hit:hover + .route-path,
+.routes .route-hit:focus + .route-path {
+  stroke: var(--brass-300);
+  stroke-width: 7;
+  filter: url(#routeGlow) drop-shadow(0 0 12px rgba(224, 192, 129, 0.85));
+  opacity: 1;
+  animation: dashFlowSlow 1.55s linear infinite;
+}
+
+@keyframes dashFlowSlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -52; }
+}
+
+/* Dim non-active routes when map is hovered */
+.routes:hover .route-path { opacity: 0.42; }
+.routes:hover .route-path.is-active { opacity: 1; }
+
+/* Route endpoint markers */
+.route-points circle {
+  fill: var(--brass-300);
+  filter: drop-shadow(0 0 8px rgba(224, 192, 129, 0.85));
+}
+
+/* ── Floating info card — pinned top-right of map ─── */
+.info-card {
+  /* Local accent (cyan) used for eyebrow, labels, dots, CTA. */
+  --info-accent: #6EC5DA;
+  --info-accent-soft: rgba(110, 197, 218, 0.22);
+  --info-bg: #0B1A24;
+  --info-bg-deep: #07121B;
+  --info-border: rgba(110, 197, 218, 0.32);
+
+  position: absolute;
+  z-index: 5;
+  top: var(--s-4);
+  right: var(--s-4);
+  width: 21rem;
+  max-width: calc(100% - 2rem);
+  max-height: calc(100% - 2rem);
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  border: 1px solid var(--info-border);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--info-bg) 0%, var(--info-bg-deep) 100%);
+  color: var(--mist-50);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.info-card.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.info-card__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(216, 210, 191, 0.18);
+  border-radius: var(--r-circle);
+  background: rgba(6, 9, 10, 0.55);
+  color: var(--mist-200);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.info-card__close:hover,
+.info-card__close:focus {
+  border-color: var(--info-accent);
+  color: var(--info-accent);
+  background: rgba(11, 26, 36, 0.9);
+  outline: none;
+}
+
+.info-card__eyebrow {
+  margin: 0 0 var(--s-3);
+  padding-right: 2.5rem;
+  color: var(--info-accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.info-card__title {
+  margin: 0 0 var(--s-2);
+  color: var(--mist-50);
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(1.65rem, 1.2rem + 1vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+}
+
+.info-card__subtitle {
+  margin: 0 0 var(--s-5);
+  color: rgba(216, 210, 191, 0.82);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.info-card__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4) var(--s-4);
+  margin-bottom: var(--s-4);
+}
+
+.info-card .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.info-card .stat__label {
+  margin: 0;
+  color: var(--info-accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.info-card .stat__value {
+  margin: 0;
+  color: var(--mist-50);
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.info-card .stat-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 1.4rem;
+}
+
+.info-card .stat-rating span {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--info-accent);
+  box-shadow: 0 0 8px rgba(110, 197, 218, 0.55);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-card .stat-rating span.is-empty {
+  background: var(--info-accent-soft);
+  box-shadow: none;
+}
+
+.info-card__rule {
+  height: 1px;
+  margin: var(--s-2) 0 var(--s-4);
+  border: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(216, 210, 191, 0.18) 18%, rgba(216, 210, 191, 0.18) 82%, transparent 100%);
+}
+
+.info-card__desc {
+  margin: 0 0 var(--s-5);
+  color: rgba(216, 210, 191, 0.82);
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.info-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.95rem var(--s-5);
+  border: 1.5px solid var(--info-accent);
+  border-radius: var(--r-circle);
+  color: var(--info-accent);
+  background: transparent;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.info-card__cta svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 auto;
+}
+
+.info-card__cta:hover,
+.info-card__cta:focus {
+  background: var(--info-accent);
+  color: var(--info-bg-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 36px rgba(110, 197, 218, 0.28);
+  outline: none;
+}
+
+/* Compact version for narrow viewports */
+@media (max-width: 640px) {
+  .info-card {
+    width: calc(100% - 1.5rem);
+    max-width: 22rem;
+    padding: var(--s-4);
+  }
+
+  .info-card__title {
+    font-size: 1.5rem;
+  }
+
+  .info-card__stats {
+    gap: var(--s-3);
+  }
+
+  .info-card .stat__value {
+    font-size: 0.95rem;
+  }
+}
+
+/* ── Reveal / pop-in animations ──────────────────── */
+.trail-map-layout.reveal-map .route-panel {
+  opacity: 0;
+  transform: translateX(-22px);
+  transition: opacity 0.8s var(--ease-organic) 0.1s, transform 0.8s var(--ease-organic) 0.1s;
+}
+
+.trail-map-layout.reveal-map .map-card {
+  opacity: 0;
+  transform: translateX(22px) scale(0.985);
+  transition: opacity 0.85s var(--ease-organic) 0.18s, transform 0.85s var(--ease-organic) 0.18s;
+}
+
+.trail-map-layout.reveal-map.is-visible .route-panel,
+.trail-map-layout.reveal-map.is-visible .map-card {
+  opacity: 1;
+  transform: none;
+}
+
+.map-card.is-visible {
+  animation: mapPopIn 0.9s cubic-bezier(0.18, 0.89, 0.32, 1.18) both;
+}
+
+@keyframes mapPopIn {
+  0%   { opacity: 0; transform: translateX(22px) translateY(14px) scale(0.94); filter: blur(6px); }
+  60%  { opacity: 1; transform: translateX(0) translateY(0) scale(1.02);       filter: blur(0); }
+  100% { opacity: 1; transform: translateX(0) translateY(0) scale(1);          filter: blur(0); }
+}
+
+@keyframes mapPopInMobile {
+  0%   { opacity: 0; transform: translateY(18px) scale(0.96); filter: blur(6px); }
+  60%  { opacity: 1; transform: translateY(0) scale(1.015);   filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1);       filter: blur(0); }
+}
+
+.map-card.is-visible .region {
+  animation: regionFadeUp 0.7s ease both;
+}
+.map-card.is-visible .region:nth-of-type(1) { animation-delay: 0.18s; }
+.map-card.is-visible .region:nth-of-type(2) { animation-delay: 0.26s; }
+.map-card.is-visible .region:nth-of-type(3) { animation-delay: 0.34s; }
+.map-card.is-visible .region:nth-of-type(4) { animation-delay: 0.42s; }
+.map-card.is-visible .region:nth-of-type(5) { animation-delay: 0.50s; }
+
+@keyframes regionFadeUp {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.map-card.is-visible .route-labels text {
+  animation: labelPop 0.55s ease both;
+}
+.map-card.is-visible .route-labels text:nth-child(1) { animation-delay: 0.66s; }
+.map-card.is-visible .route-labels text:nth-child(2) { animation-delay: 0.72s; }
+.map-card.is-visible .route-labels text:nth-child(3) { animation-delay: 0.78s; }
+.map-card.is-visible .route-labels text:nth-child(4) { animation-delay: 0.84s; }
+.map-card.is-visible .route-labels text:nth-child(5) { animation-delay: 0.90s; }
+.map-card.is-visible .route-labels text:nth-child(6) { animation-delay: 0.96s; }
+.map-card.is-visible .route-labels text:nth-child(7) { animation-delay: 1.02s; }
+
+@keyframes labelPop {
+  from { opacity: 0; transform: translateY(8px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.map-card.is-visible .route-path {
+  animation: routeIntro 1.2s ease both;
+}
+
+.map-card.is-visible .route-path.is-active {
+  animation: dashFlowSlow 1.55s linear infinite;
+}
+
+@keyframes routeIntro {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ================================================================
+   21 · SIMPLE SUPPORT PAGES
+================================================================ */
+
+.subpage-main {
+  padding-top: var(--nav-h);
+  background: var(--ink-950);
+}
+
+.subpage-hero {
+  padding-block: var(--s-8) var(--s-6);
+  background:
+    linear-gradient(180deg, rgba(15, 39, 48, 0.42), rgba(6, 9, 10, 0.98)),
+    var(--ink-900);
+}
+
+.subpage-hero .container {
+  max-width: 960px;
+}
+
+.subpage-hero .section-headline {
+  max-width: 13ch;
+  font-size: clamp(2.2rem, 1.45rem + 3vw, 4rem);
+}
+
+.subpage-hero .section-lead {
+  max-width: 58ch;
+}
+
+.subpage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+  max-width: 1120px;
+  padding-block: var(--s-7) var(--s-9);
+}
+
+.subpage-card {
+  min-height: 0;
+  padding: var(--s-5);
+  border: 1px solid rgba(216, 210, 191, 0.09);
+  border-radius: var(--r-sm);
+  background: rgba(17, 23, 21, 0.48);
+}
+
+.subpage-card:target {
+  border-color: rgba(224, 192, 129, 0.62);
+  background: rgba(36, 46, 43, 0.72);
+  box-shadow: 0 0 0 1px rgba(184, 146, 74, 0.22);
+  scroll-margin-top: calc(var(--nav-h) + var(--s-5));
+}
+
+.subpage-card h2,
+.subpage-card h3 {
+  margin-block: var(--s-2) var(--s-3);
+  color: var(--mist-50);
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.85rem);
+  line-height: var(--lh-heading);
+}
+
+.subpage-card p,
+.subpage-card li {
+  color: var(--mist-200);
+  max-width: 62ch;
+}
+
+.subpage-card ul {
+  display: grid;
+  gap: var(--s-1);
+  margin-top: var(--s-4);
+  padding-left: 1.1rem;
+}
+
+.route-grid {
+  align-items: start;
+}
+
+.route-card {
+  position: relative;
+  display: grid;
+  padding: 0;
+  overflow: hidden;
+  background: rgba(17, 23, 21, 0.58);
+}
+
+.route-card__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #071315;
+  border-bottom: 1px solid rgba(216, 210, 191, 0.1);
+}
+
+.route-card__body {
+  display: grid;
+  align-content: start;
+  padding: var(--s-5);
+}
+
+.route-card h2 span {
+  display: block;
+  margin-top: var(--s-1);
+  color: var(--brass-300);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.58em;
+  line-height: 1.2;
+}
+
+.route-card__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin-block: var(--s-5) var(--s-4);
+}
+
+.route-card__meta div {
+  display: grid;
+  gap: var(--s-1);
+  padding-top: var(--s-3);
+  border-top: 1px solid rgba(216, 210, 191, 0.12);
+}
+
+.route-card__meta dt {
+  color: var(--mist-400);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  text-transform: uppercase;
+}
+
+.route-card__meta dd {
+  margin: 0;
+  color: var(--mist-50);
+}
+
+.reference-list {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.reference-list a {
+  color: var(--brass-300);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+@media (max-width: 1100px) {
+  .trail-map-layout,
+  .subpage-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subpage-grid {
+    max-width: 760px;
+  }
+
+  .route-panel {
+    order: 2;
+  }
+}
+
+@media (max-width: 700px) {
+  .subpage-hero {
+    padding-block: var(--s-7) var(--s-5);
+  }
+
+  .subpage-hero .section-headline {
+    max-width: none;
+  }
+
+  .subpage-grid {
+    gap: var(--s-4);
+    padding-block: var(--s-5) var(--s-7);
+  }
+
+  .subpage-card {
+    padding: var(--s-4);
+  }
+
+  .route-card {
+    padding: 0;
+  }
+
+  .route-card__body {
+    padding: var(--s-4);
+  }
+
+  .route-card__meta {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+
+  .trail-map-section {
+    padding-block: var(--s-6) var(--s-7);
+  }
+
+  .trail-map-section .container--wide {
+    padding-inline: var(--s-3);
+  }
+
+  .trail-map-header {
+    padding-block: 0 var(--s-4);
+  }
+
+  .map-card {
+    border-radius: var(--r-md);
+    min-height: auto;
+  }
+
+  .route-panel {
+    padding: var(--s-4);
+  }
+
+  .trail-map-layout.reveal-map .route-panel {
+    transform: translateY(18px);
+  }
+
+  .trail-map-layout.reveal-map .map-card {
+    transform: translateY(18px) scale(0.985);
+  }
+
+  .map-card.is-visible {
+    animation-name: mapPopInMobile;
+  }
+
+  .route-panel h3 {
+    font-size: 1.25rem;
+  }
+
+  .route-list-item {
+    padding: var(--s-2) var(--s-3);
+    font-size: 0.9rem;
+  }
+
+  .info-card {
+    width: calc(100% - 1.5rem);
+    max-width: 18rem;
+    padding: var(--s-3);
+  }
+
+  .info-card h3 {
+    font-size: 1.15rem;
+  }
+
+  .region text {
+    font-size: 18px;
+  }
+
+  .region-kowloon text,
+  .region-hki text,
+  .region-lantau text {
+    font-size: 14px;
+  }
+
+  .region-islands text {
+    font-size: 12px;
+  }
+
+  .route-labels text {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 701px) {
+  .trail-map-section {
+    padding-block: var(--s-10);
+  }
+
+  .trail-map-section .container--wide {
+    padding-inline: clamp(1rem, 4vw, 4rem);
+  }
+
+  .trail-map-header {
+    padding-block: 0 var(--s-6);
+  }
+
+  .map-card {
+    border-radius: var(--r-lg);
+    min-height: 36rem;
+  }
+}
+
+@media (min-width: 1101px) {
+  .trail-map-layout {
+    grid-template-columns: minmax(15rem, 17rem) minmax(0, 1fr);
+    gap: var(--s-5);
+    align-items: start;
+  }
+
+  .route-panel {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--s-3));
+  }
+}
+
+
+/* ================================================================
+   17 · MYTHS HUB — Filter Bar, Enhanced Cards, Timeline
+   Used only by myths.html. Fully reuses design tokens.
+================================================================ */
+
+/* ── Filter section wrapper ─────────────────────────────────── */
+.myth-filter-section {
+  padding-block: var(--s-7) var(--s-3);
+  max-width: 1120px;
+}
+
+.myth-filter {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.myth-filter__label {
+  margin: 0;
+}
+
+.myth-filter__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.myth-filter__count {
+  margin: var(--s-1) 0 0;
+  color: var(--mist-400);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+}
+
+/* ── Filter buttons (pill style, brass accent on active) ────── */
+.filter-btn {
+  appearance: none;
+  cursor: pointer;
+  padding: var(--s-2) var(--s-4);
+  background: rgba(17, 23, 21, 0.6);
+  color: var(--mist-200);
+  border: 1px solid rgba(216, 210, 191, 0.14);
+  border-radius: var(--r-circle);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background     0.3s var(--ease-organic),
+    border-color   0.3s var(--ease-organic),
+    color          0.3s var(--ease-organic),
+    transform      0.2s var(--ease-emphasized);
+}
+
+.filter-btn:hover {
+  border-color: var(--brass-500);
+  color: var(--mist-50);
+  transform: translateY(-1px);
+}
+
+.filter-btn:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 3px;
+  border-radius: var(--r-circle);
+}
+
+.filter-btn--active {
+  background: rgba(184, 146, 74, 0.16);
+  color: var(--brass-300);
+  border-color: var(--brass-500);
+}
+
+/* ── Myth grid pacing ───────────────────────────────────────── */
+.myth-grid {
+  padding-block: var(--s-5) var(--s-9);
+}
+
+/* ── Myth card layout (extends .subpage-card) ───────────────── */
+.myth-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  transition:
+    opacity   0.25s var(--ease-organic),
+    transform 0.25s var(--ease-organic);
+}
+
+.myth-card.is-leaving,
+.myth-card.is-entering {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.myth-card[hidden] {
+  display: none;
+}
+
+.myth-card__title {
+  margin: 0;
+  display: grid;
+  gap: var(--s-1);
+}
+
+.myth-card__title-en {
+  display: block;
+  color: var(--mist-50);
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.85rem);
+  line-height: var(--lh-heading);
+}
+
+.myth-card__title-zh {
+  display: block;
+  color: var(--brass-300);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+/* Key-facts definition list — three rows of label/value */
+.myth-card__facts {
+  display: grid;
+  gap: var(--s-2);
+  margin: var(--s-2) 0 0;
+  padding: var(--s-3) 0 var(--s-3);
+  border-top: 1px solid rgba(216, 210, 191, 0.1);
+  border-bottom: 1px solid rgba(216, 210, 191, 0.1);
+}
+
+.myth-card__facts > div {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--s-3);
+  align-items: baseline;
+}
+
+.myth-card__facts dt {
+  margin: 0;
+  color: var(--mist-400);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.myth-card__facts dd {
+  margin: 0;
+  color: var(--mist-50);
+  font-size: var(--t-caption);
+}
+
+.myth-card__cta {
+  align-self: flex-start;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--brass-300);
+}
+
+.myth-card__cta:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 4px;
+  border-radius: var(--r-sm);
+}
+
+/* ── Hong Kong Feng Shui Timeline ───────────────────────────── */
+.myth-timeline-section {
+  padding-block: var(--s-8) var(--s-10);
+  background:
+    linear-gradient(180deg, rgba(11, 15, 14, 0.0), rgba(15, 39, 48, 0.35)),
+    var(--ink-950);
+  border-top: 1px solid rgba(216, 210, 191, 0.06);
+}
+
+.myth-timeline__header {
+  max-width: 720px;
+  margin-bottom: var(--s-7);
+}
+
+.myth-timeline__header .section-headline {
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+}
+
+.myth-timeline {
+  display: grid;
+  gap: var(--s-7);
+}
+
+/* Horizontal node track + axis line */
+.myth-timeline__track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-3) var(--s-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.myth-timeline__track::-webkit-scrollbar {
+  display: none;
+}
+
+.myth-timeline__axis {
+  position: absolute;
+  top: calc(var(--s-5) + 7px);
+  left: var(--s-5);
+  right: var(--s-5);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(184, 146, 74, 0.45) 8%,
+    rgba(184, 146, 74, 0.45) 92%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Single timeline node (button) */
+.myth-timeline__node {
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: center;
+  gap: var(--s-2);
+  min-width: 4.5rem;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--mist-400);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.1em;
+  transition: color 0.3s var(--ease-organic);
+}
+
+.myth-timeline__node:hover {
+  color: var(--mist-50);
+}
+
+.myth-timeline__node:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 6px;
+  border-radius: var(--r-sm);
+}
+
+.myth-timeline__dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--r-circle);
+  background: var(--ink-800);
+  border: 1.5px solid var(--brass-500);
+  box-shadow: 0 0 0 4px rgba(11, 15, 14, 0.95);
+  transition:
+    background  0.3s var(--ease-organic),
+    transform   0.3s var(--ease-emphasized),
+    box-shadow  0.3s var(--ease-organic);
+}
+
+.myth-timeline__node:hover .myth-timeline__dot {
+  transform: scale(1.18);
+}
+
+.myth-timeline__node.is-active .myth-timeline__dot {
+  background: var(--brass-300);
+  border-color: var(--brass-300);
+  transform: scale(1.35);
+  box-shadow:
+    0 0 0 4px rgba(11, 15, 14, 0.95),
+    0 0 14px rgba(224, 192, 129, 0.55);
+}
+
+.myth-timeline__node.is-active {
+  color: var(--brass-300);
+}
+
+.myth-timeline__year {
+  display: block;
+}
+
+/* Panels (one visible at a time) */
+.myth-timeline__panels {
+  position: relative;
+  border: 1px solid rgba(216, 210, 191, 0.1);
+  border-radius: var(--r-md);
+  background: rgba(17, 23, 21, 0.55);
+  padding: var(--s-6);
+  min-height: 14rem;
+}
+
+.myth-timeline__panel {
+  display: grid;
+  gap: var(--s-3);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity   0.25s var(--ease-organic),
+    transform 0.25s var(--ease-organic);
+}
+
+.myth-timeline__panel[hidden] {
+  display: none;
+}
+
+.myth-timeline__panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.myth-timeline__panel h3 {
+  margin: 0;
+  color: var(--mist-50);
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.85rem);
+  line-height: var(--lh-heading);
+}
+
+.myth-timeline__panel p {
+  margin: 0;
+  color: var(--mist-200);
+  max-width: 68ch;
+  font-size: var(--t-body);
+}
+
+/* ── Responsive — myths hub ─────────────────────────────────── */
+@media (max-width: 700px) {
+  .myth-filter-section {
+    padding-block: var(--s-5) var(--s-2);
+  }
+
+  .myth-card__facts > div {
+    grid-template-columns: 1fr;
+    gap: var(--s-1);
+  }
+
+  .myth-timeline-section {
+    padding-block: var(--s-7) var(--s-8);
+  }
+
+  .myth-timeline__track {
+    justify-content: flex-start;
+    padding-inline: 0;
+  }
+
+  .myth-timeline__node {
+    min-width: 4rem;
+  }
+
+  .myth-timeline__panels {
+    padding: var(--s-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .myth-card,
+  .myth-timeline__panel,
+  .myth-timeline__dot,
+  .filter-btn {
+    transition: none;
+  }
+}
+
+
+/* ================================================================
+   18 · MOBILE OPTIMISATIONS
+   ──────────────────────────────────────────────────────────────
+   Audited at 360px / 375px / 768px. Each rule is annotated.
+
+   Layout below splits into three groups:
+     A · Mobile drawer + animated hamburger (always present, JS adds
+         .is-open / .is-active)
+     B · @media (max-width: 768px) — the bulk of the responsive fixes
+     C · @media (max-width: 380px) — extra-narrow tweaks for 360–380px
+================================================================ */
+
+
+/* ════════ A · MOBILE DRAWER (panel + scrim + animated icon) ══════ */
+
+/* Scrim (dimmer behind the drawer) */
+.mobile-drawer__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(6, 9, 10, 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-organic);
+}
+
+.mobile-drawer__scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Drawer panel — slides in from the right */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  width: min(86vw, 22rem);
+  max-width: 100%;
+  padding: var(--s-7) var(--s-5) var(--s-5);
+  background: var(--ink-900);
+  border-left: 1px solid rgba(184, 146, 74, 0.18);
+  box-shadow: -28px 0 80px rgba(0, 0, 0, 0.55);
+  transform: translateX(100%);
+  transition: transform 0.35s var(--ease-emphasized);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mobile-drawer.is-open {
+  transform: translateX(0);
+}
+
+/* Body lock applied by JS while the drawer is open */
+body.mobile-drawer-open {
+  overflow: hidden;
+  /* Preserve scroll position by also pinning width (avoids reflow) */
+  touch-action: none;
+}
+
+/* Drawer close button (top-right X) */
+.mobile-drawer__close {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  width: 44px;          /* min 44px tap target */
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgba(216, 210, 191, 0.14);
+  border-radius: var(--r-circle);
+  color: var(--mist-200);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+}
+
+.mobile-drawer__close::before,
+.mobile-drawer__close::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.mobile-drawer__close::before { transform: rotate(45deg); }
+.mobile-drawer__close::after  { transform: rotate(-45deg); }
+
+.mobile-drawer__close:hover,
+.mobile-drawer__close:focus-visible {
+  border-color: var(--brass-500);
+  color: var(--brass-300);
+}
+
+.mobile-drawer__close:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 3px;
+}
+
+/* Cloned link list inside drawer — large vertical tap targets */
+.mobile-drawer__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.mobile-drawer__links .nav__link {
+  display: block;
+  padding: var(--s-3) var(--s-2);
+  min-height: 44px;          /* min 44px tap target */
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(216, 210, 191, 0.08);
+}
+
+/* Underline-dot indicator from desktop nav doesn't make sense in the
+   stacked drawer layout — remove it cleanly. */
+.mobile-drawer__links .nav__link::after { display: none; }
+
+/* Cloned language toggle pinned at the foot of the drawer */
+.mobile-drawer__lang {
+  align-self: flex-start;
+  margin-top: auto;
+  min-height: 44px;
+}
+
+/* Hide the drawer entirely above the mobile-nav threshold so nothing
+   leaks through accidentally. */
+@media (min-width: 900px) {
+  .mobile-drawer,
+  .mobile-drawer__scrim {
+    display: none;
+  }
+}
+
+/* Animated hamburger → X icon (driven by JS toggling .is-active) */
+.nav__hamburger {
+  position: relative;
+  width: 44px;          /* min 44px tap target */
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__hamburger span {
+  position: absolute;
+  left: 50%;
+  margin-left: -11px;
+  transition:
+    transform 0.3s var(--ease-emphasized),
+    opacity   0.2s var(--ease-organic),
+    top       0.3s var(--ease-emphasized);
+}
+
+.nav__hamburger span:nth-child(1) { top: calc(50% - 6px); }
+.nav__hamburger span:nth-child(2) { top: 50%; }
+.nav__hamburger span:nth-child(3) { top: calc(50% + 6px); }
+
+.nav__hamburger.is-active span:nth-child(1) {
+  top: 50%;
+  transform: rotate(45deg);
+}
+
+.nav__hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__hamburger.is-active span:nth-child(3) {
+  top: 50%;
+  transform: rotate(-45deg);
+}
+
+.nav__hamburger:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+
+/* ════════ B · @media (max-width: 768px) — bulk responsive fixes ══ */
+
+@media (max-width: 768px) {
+
+  /* ── 1 · Trail map: stack vertically, MAP first then panel ───── */
+  .trail-map-layout {
+    grid-template-columns: 1fr;       /* override 1024px+ 2-col grid  */
+    gap: var(--s-4);
+  }
+
+  .trail-map-layout .map-card {
+    order: 1;                          /* map sits at the top         */
+    min-height: 0;                     /* drop the desktop 30rem floor */
+  }
+
+  .trail-map-layout .route-panel {
+    order: 2;                          /* selector chips below map    */
+    padding: var(--s-3) 0;             /* horizontal padding handled by chip row */
+    background: transparent;           /* less visual weight on mobile */
+    box-shadow: none;
+    border: none;
+    position: static;                  /* defeat the desktop sticky   */
+  }
+
+  .route-panel h3 {
+    padding-inline: var(--s-3);
+    font-size: 1.15rem;
+  }
+
+  .route-panel .panel-note {
+    padding-inline: var(--s-3);
+    margin-bottom: var(--s-3);
+  }
+
+  /* ── 2 · Route-panel buttons → horizontal scroll-snap chip row ── */
+  .route-panel__list {
+    display: flex;
+    gap: var(--s-2);
+    padding: var(--s-1) var(--s-3) var(--s-3);
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;     /* requested behaviour         */
+    scroll-padding-inline: var(--s-3);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .route-panel__list::-webkit-scrollbar { display: none; }
+
+  .route-panel__list .route-list-item {
+    flex: 0 0 auto;                    /* let chips size to content   */
+    margin-bottom: 0;
+    padding: var(--s-2) var(--s-4);
+    min-height: 44px;                  /* tap target compliance       */
+    scroll-snap-align: start;
+  }
+
+  /* Active state stays bright; transform is removed so chips don't
+     drift outside the snap grid. */
+  .route-panel__list .route-list-item:hover,
+  .route-panel__list .route-list-item:focus,
+  .route-panel__list .route-list-item.is-active {
+    transform: none;
+  }
+
+  /* ── 3 · Shrink the SVG map so it never dominates the viewport ─ */
+  .hk-map {
+    max-height: 60vh;                  /* requested ~60vh ceiling     */
+    height: 60vh;
+    aspect-ratio: auto;                /* let max-height take effect  */
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .map-card {
+    border-radius: var(--r-md);
+  }
+
+  /* ── 4 · Bento: every tile becomes full-width (single column) ─── */
+  .bento,
+  .bento-grid {
+    grid-template-columns: 1fr;        /* explicit single column       */
+    gap: var(--s-4);
+  }
+
+  .bento-tile,
+  .bento-tile--feature,
+  .bento-tile--tall,
+  .bento-tile--wide,
+  .bento-tile--square,
+  .bento-tile--narrow {
+    grid-column: 1 / -1 !important;    /* defeat the 12-col span rules */
+    grid-row: auto !important;
+    width: 100%;
+  }
+
+  /* ── 5 · Regions track: horizontal scroll + snap on mobile ────── */
+  .regions-track {
+    display: flex;                     /* flex row keeps native scroll */
+    grid-template-columns: none;
+    flex-wrap: nowrap;
+    gap: var(--s-3);
+    max-width: none;
+    padding-inline: var(--s-4);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;     /* requested behaviour         */
+    scroll-padding-inline: var(--s-4);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .regions-track::-webkit-scrollbar { display: none; }
+
+  .regions-track .region-card {
+    flex: 0 0 80%;                     /* one card-and-a-bit per view */
+    max-width: 22rem;
+    scroll-snap-align: center;
+  }
+
+  /* Touch-only swipe hint (also gated by hover/pointer below) */
+  .regions-section__swipe-hint {
+    display: none;                     /* default — revealed by the
+                                          coarse-pointer rule further
+                                          down inside this @media     */
+    margin: var(--s-3) 0 0;
+    color: var(--brass-300);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--t-micro);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* ── 6 · Subpage grids (route detail, myths) → single column ──── */
+  .subpage-grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+    max-width: 720px;
+  }
+
+  /* Generic tightening of the subpage hero so the headline doesn't
+     overflow at narrow widths. */
+  .subpage-hero .section-headline {
+    font-size: clamp(1.7rem, 1.2rem + 3vw, 2.6rem);
+    max-width: none;
+  }
+}
+
+/* Touch-only swipe hint reveal (paired with rule above).
+   Uses (hover: none) + (pointer: coarse) to detect touch input so the
+   hint stays hidden for desktop trackpads scrolling at narrow widths. */
+@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+  .regions-section__swipe-hint {
+    display: inline-block;
+  }
+}
+
+
+/* ════════ C · @media (max-width: 380px) — extra-narrow tweaks ══ */
+
+@media (max-width: 380px) {
+
+  /* Hero title: at 360px the original clamp lower bound (~3.5rem)
+     plus the 14ch max-width pushed "Beyond the Map" onto 4 lines.
+     Tighten the lower bound and the line-height so it stays at 2 or
+     fewer lines on iPhone SE / Android compact widths. */
+  .hero-title {
+    font-size: 3.1rem;
+    line-height: 1.02;
+    max-width: 11ch;
+    letter-spacing: 0;
+  }
+
+  /* Slim down the hero's secondary chinese display title in concert */
+  .hero-title-chinese {
+    font-size: clamp(1.4rem, 7vw, 2.1rem);
+  }
+
+  /* Container side padding eased so cards reach closer to the edge */
+  .container,
+  .container--wide {
+    padding-inline: var(--s-3);
+  }
+}
+
+
+/* ================================================================
+   19 · GALLERY — Masonry grid + Lightbox
+   Used only by gallery.html.
+================================================================ */
+
+/* ── Filter bar wrapper ─────────────────────────────────────── */
+.gallery-filter-section {
+  padding-block: var(--s-7) var(--s-3);
+  display: grid;
+  gap: var(--s-3);
+  max-width: 1200px;
+}
+
+.gallery-filter__label {
+  margin: 0;
+}
+
+.gallery-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.gallery-count {
+  margin: var(--s-1) 0 0;
+  color: var(--mist-400);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+}
+
+/* ── Masonry grid (pure CSS columns, no JS) ─────────────────── */
+.gallery-section {
+  padding-block: var(--s-3) var(--s-9);
+  max-width: 1200px;
+}
+
+.gallery-masonry {
+  column-count: 3;
+  column-gap: var(--s-4);
+  /* Stops a single tall image from forcing the column to wrap weirdly */
+  orphans: 1;
+  widows: 1;
+}
+
+@media (max-width: 1024px) {
+  .gallery-masonry { column-count: 2; }
+}
+
+@media (max-width: 640px) {
+  .gallery-masonry { column-count: 1; }
+}
+
+/* ── Gallery item (button-wrapped image) ─────────────────────── */
+.gallery-item {
+  display: block;
+  width: 100%;
+  margin: 0 0 var(--s-4);
+  padding: 0;
+  background: var(--ink-800);
+  border: 1px solid rgba(216, 210, 191, 0.08);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  cursor: zoom-in;
+  /* Keep an item from being split across two columns */
+  break-inside: avoid;
+  /* Aspect-ratio is set per-item via inline style "--ar: 16 / 10" etc. */
+  aspect-ratio: var(--ar, 4 / 3);
+  position: relative;
+  transition:
+    transform     0.35s var(--ease-emphasized),
+    border-color  0.35s var(--ease-organic),
+    box-shadow    0.35s var(--ease-organic),
+    opacity       0.25s var(--ease-organic);
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-organic);
+}
+
+.gallery-item:hover,
+.gallery-item:focus-visible {
+  transform: scale(1.02);
+  border-color: rgba(224, 192, 129, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(184, 146, 74, 0.18),
+    0 18px 50px rgba(0, 0, 0, 0.45),
+    0 0 24px rgba(224, 192, 129, 0.18);
+  outline: none;
+}
+
+.gallery-item:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 4px;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+/* Filter fade transitions (mirrors the myths-card pattern) */
+.gallery-item.is-leaving,
+.gallery-item.is-entering {
+  opacity: 0;
+  transform: scale(0.985);
+}
+
+.gallery-item[hidden] {
+  display: none;
+}
+
+/* ── Lightbox overlay ────────────────────────────────────────── */
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  justify-items: center;
+  padding: var(--s-5) var(--s-4);
+  background: rgba(0, 0, 0, 0.92);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease-organic);
+}
+
+.gallery-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Body scroll lock applied by JS while lightbox is open */
+body.gallery-lightbox-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* Top bar — counter on the left, close on the right */
+.gallery-lightbox__topbar {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-3);
+  color: var(--mist-200);
+}
+
+.gallery-lightbox__counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-caption);
+  letter-spacing: 0.12em;
+  color: var(--brass-300);
+}
+
+.gallery-lightbox__close {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  background: rgba(17, 23, 21, 0.72);
+  border: 1px solid rgba(216, 210, 191, 0.18);
+  border-radius: var(--r-circle);
+  color: var(--mist-200);
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+}
+
+.gallery-lightbox__close::before,
+.gallery-lightbox__close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -9px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.gallery-lightbox__close::before { transform: rotate(45deg); }
+.gallery-lightbox__close::after  { transform: rotate(-45deg); }
+
+.gallery-lightbox__close:hover,
+.gallery-lightbox__close:focus-visible {
+  color: var(--brass-300);
+  border-color: var(--brass-500);
+  background: rgba(184, 146, 74, 0.16);
+}
+
+.gallery-lightbox__close:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 3px;
+}
+
+/* Stage that holds image + caption */
+.gallery-lightbox__stage {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: var(--s-3);
+  position: relative;
+}
+
+.gallery-lightbox__image-wrap {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.gallery-lightbox__image {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--r-md);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  background: var(--ink-900);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-organic);
+}
+
+.gallery-lightbox__image.is-ready {
+  opacity: 1;
+}
+
+.gallery-lightbox__caption {
+  margin: 0;
+  max-width: 60ch;
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--mist-50);
+}
+
+/* Prev/Next arrow buttons */
+.gallery-lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(17, 23, 21, 0.72);
+  border: 1px solid rgba(216, 210, 191, 0.18);
+  border-radius: var(--r-circle);
+  color: var(--mist-50);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.25s;
+}
+
+.gallery-lightbox__nav:hover,
+.gallery-lightbox__nav:focus-visible {
+  color: var(--brass-300);
+  border-color: var(--brass-500);
+  background: rgba(184, 146, 74, 0.16);
+}
+
+.gallery-lightbox__nav:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 3px;
+}
+
+.gallery-lightbox__nav--prev { left: 0; }
+.gallery-lightbox__nav--next { right: 0; }
+
+.gallery-lightbox__nav svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.gallery-lightbox__nav[disabled] {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Bottom bar (placeholder; kept for grid alignment) */
+.gallery-lightbox__bottombar {
+  height: 1px;
+  width: 100%;
+}
+
+/* Responsive lightbox */
+@media (max-width: 640px) {
+  .gallery-lightbox {
+    padding: var(--s-3);
+  }
+
+  .gallery-lightbox__nav {
+    top: auto;
+    bottom: var(--s-4);
+    transform: none;
+    width: 44px;
+    height: 44px;
+  }
+
+  .gallery-lightbox__nav--prev { left: var(--s-3); }
+  .gallery-lightbox__nav--next { right: var(--s-3); }
+
+  .gallery-lightbox__image {
+    max-height: 60vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item,
+  .gallery-item img,
+  .gallery-lightbox,
+  .gallery-lightbox__image,
+  .gallery-lightbox__nav,
+  .gallery-lightbox__close {
+    transition: none;
+  }
+}
+
+
+/* ================================================================
+   20 · FEEDBACK FORM — about.html only
+   Dark inputs, brass focus, soft-coral error state. JS in §20 of
+   main.js handles validation + the success swap.
+================================================================ */
+
+/* Local danger tokens — kept here so adding the form doesn't pollute
+   the global palette block at the top of the file. */
+.feedback-section {
+  --danger-500: #E66B6B;
+  --danger-300: #F2A6A6;
+  --danger-bg:  rgba(230, 107, 107, 0.10);
+
+  padding-block: var(--s-7) var(--s-9);
+}
+
+.feedback-card {
+  max-width: 760px;
+  margin-inline: auto;
+  display: grid;
+  gap: var(--s-3);
+}
+
+.feedback-card h2 {
+  margin-top: var(--s-2);
+}
+
+/* ── Form root ──────────────────────────────────────────────── */
+.feedback-form {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-4);
+  /* Allow JS-driven fade swap to/from the success card */
+  transition: opacity 0.25s var(--ease-organic);
+}
+
+.feedback-form[hidden] {
+  display: none;
+}
+
+.feedback-form.is-fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Per-field row ──────────────────────────────────────────── */
+.form-row {
+  display: grid;
+  gap: var(--s-2);
+  border: none;          /* defeat fieldset default border */
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.form-row > label,
+.form-row > legend {
+  padding: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: var(--t-caption);
+  letter-spacing: 0.04em;
+  color: var(--mist-200);
+}
+
+.form-req {
+  color: var(--brass-300);
+  font-weight: 500;
+}
+
+/* ── Inputs / select / textarea — shared base ──────────────── */
+.feedback-form input[type="text"],
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  padding: var(--s-3) var(--s-4);
+  font-family: 'Manrope', sans-serif;
+  font-size: var(--t-body);
+  color: var(--mist-50);
+  background: var(--ink-700);
+  border: 1px solid rgba(216, 210, 191, 0.16);
+  border-radius: var(--r-sm);
+  transition:
+    border-color 0.25s var(--ease-organic),
+    box-shadow   0.25s var(--ease-organic),
+    background   0.25s var(--ease-organic);
+}
+
+.feedback-form textarea {
+  min-height: 7rem;
+  resize: vertical;
+  line-height: var(--lh-body, 1.5);
+}
+
+.feedback-form select {
+  /* Native chevron — keep simple, swap colour to match palette */
+  appearance: none;
+  background-image: linear-gradient(
+    45deg, transparent 50%, var(--brass-300) 50%
+  ),
+  linear-gradient(
+    -45deg, transparent 50%, var(--brass-300) 50%
+  );
+  background-position:
+    calc(100% - 1.05rem) center,
+    calc(100% - 0.65rem) center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: var(--s-7);
+}
+
+.feedback-form select option {
+  background: var(--ink-800);
+  color: var(--mist-50);
+}
+
+.feedback-form input::placeholder,
+.feedback-form textarea::placeholder {
+  color: var(--mist-400);
+}
+
+/* Brass focus ring for every interactive field */
+.feedback-form input:focus-visible,
+.feedback-form select:focus-visible,
+.feedback-form textarea:focus-visible {
+  outline: none;
+  border-color: var(--brass-500);
+  box-shadow: 0 0 0 3px rgba(184, 146, 74, 0.22);
+  background: var(--ink-800);
+}
+
+/* Suppress the white autofill bleed in Chrome / Safari and keep the
+   dark + brass treatment intact. */
+.feedback-form input:-webkit-autofill,
+.feedback-form input:-webkit-autofill:hover,
+.feedback-form input:-webkit-autofill:focus,
+.feedback-form textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--mist-50);
+  -webkit-box-shadow: 0 0 0 1000px var(--ink-700) inset;
+  caret-color: var(--mist-50);
+  /* The 9999s trick keeps the override in place until the user types. */
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ── Radio group ────────────────────────────────────────────── */
+.form-row--radios {
+  /* Override the .form-row gap for tighter heading→options spacing */
+  gap: var(--s-3);
+}
+
+.form-radios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--s-2);
+}
+
+.form-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--ink-700);
+  border: 1px solid rgba(216, 210, 191, 0.12);
+  border-radius: var(--r-sm);
+  color: var(--mist-200);
+  font-size: var(--t-caption);
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease-organic),
+    background   0.2s var(--ease-organic),
+    color        0.2s var(--ease-organic);
+}
+
+.form-radio input[type="radio"] {
+  /* Custom radio so the brass theme carries through */
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 1.5px solid var(--mist-400);
+  border-radius: var(--r-circle);
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.form-radio input[type="radio"]::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-circle);
+  background: var(--brass-300);
+  transform: scale(0);
+  transition: transform 0.2s var(--ease-emphasized);
+}
+
+.form-radio input[type="radio"]:checked {
+  border-color: var(--brass-500);
+}
+
+.form-radio input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.form-radio input[type="radio"]:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 3px;
+}
+
+.form-radio:hover {
+  border-color: rgba(184, 146, 74, 0.45);
+  color: var(--mist-50);
+}
+
+/* The whole chip lights up brass when its radio is selected */
+.form-radio:has(input[type="radio"]:checked) {
+  border-color: var(--brass-500);
+  background: rgba(184, 146, 74, 0.08);
+  color: var(--mist-50);
+}
+
+/* ── Counter + status row beneath textarea ─────────────────── */
+.form-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+.form-counter {
+  margin: 0;
+  color: var(--mist-400);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.form-counter.is-near-limit { color: var(--brass-300); }
+.form-counter.is-over-limit { color: var(--danger-300); }
+
+/* ── Inline error message ──────────────────────────────────── */
+.form-error {
+  margin: 0;
+  color: var(--danger-300);
+  font-family: 'Manrope', sans-serif;
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+}
+
+.form-error[hidden] { display: none; }
+
+/* Field-level error state — applied by JS when validation fails */
+.feedback-form .field-error,
+.feedback-form .field-error:focus-visible {
+  border-color: var(--danger-500);
+  background: var(--danger-bg);
+  box-shadow: 0 0 0 3px rgba(230, 107, 107, 0.18);
+}
+
+/* When a fieldset is in an error state, paint the radios to match */
+.form-row--radios.field-error .form-radio {
+  border-color: var(--danger-500);
+}
+
+/* ── Live status region (summary errors after submit attempt) ─ */
+.form-status {
+  margin: 0;
+  min-height: 1.4em;
+  color: var(--danger-300);
+  font-size: var(--t-caption);
+}
+
+.form-status:empty {
+  min-height: 0;
+}
+
+/* ── Actions row ───────────────────────────────────────────── */
+.form-row--actions {
+  margin-top: var(--s-2);
+}
+
+.form-row--actions .btn--primary {
+  align-self: flex-start;
+}
+
+/* ── Success card (revealed after a valid submission) ──────── */
+.feedback-success {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  margin-top: var(--s-3);
+  background: rgba(46, 148, 102, 0.10);
+  border: 1px solid rgba(91, 174, 130, 0.35);
+  border-radius: var(--r-md);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity   0.25s var(--ease-organic),
+    transform 0.25s var(--ease-organic);
+}
+
+.feedback-success[hidden] { display: none; }
+
+.feedback-success.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feedback-success__title {
+  margin: 0;
+  color: var(--mist-50);
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.65rem);
+  line-height: var(--lh-heading);
+}
+
+.feedback-success__reset {
+  align-self: flex-start;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .feedback-section {
+    padding-block: var(--s-5) var(--s-7);
+  }
+
+  .form-radios {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row--actions .btn--primary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feedback-form,
+  .feedback-success,
+  .feedback-form input,
+  .feedback-form select,
+  .feedback-form textarea,
+  .form-radio,
+  .form-radio input[type="radio"]::before {
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §21 · GLOSSARY TOOLTIPS — dotted underline + shared popover
+   Loaded by glossary.js after main.js
+═══════════════════════════════════════════════════════════════ */
+
+button.glossary-term {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: help;
+  text-decoration: underline dotted var(--brass-500);
+  text-underline-offset: 0.15em;
+  vertical-align: baseline;
+}
+
+button.glossary-term:hover,
+button.glossary-term:focus-visible {
+  color: var(--brass-400);
+}
+
+.glossary-pop {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.18s var(--ease-organic, ease),
+    transform 0.18s var(--ease-organic, ease);
+}
+
+.glossary-pop.is-open {
+  pointer-events: auto;
+}
+
+.glossary-pop__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.glossary-pop.is-open-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.glossary-pop[hidden] {
+  display: none !important;
+}
+
+.glossary-pop__card {
+  position: fixed;
+  z-index: 1;
+  max-width: 22rem;
+  padding: var(--s-4);
+  background: rgba(15, 22, 20, 0.96);
+  border: 1px solid rgba(184, 134, 88, 0.28);
+  border-top: 2px solid var(--brass-500);
+  border-radius: var(--r-md);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  pointer-events: auto;
+}
+
+.glossary-pop__close {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--mist-300);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.glossary-pop__close:hover,
+.glossary-pop__close:focus-visible {
+  color: var(--brass-400);
+  outline: 2px solid var(--brass-500);
+  outline-offset: 2px;
+}
+
+.glossary-pop__term {
+  margin: 0 2rem var(--s-2) 0;
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.65rem);
+  font-weight: 600;
+  color: var(--mist-50);
+  line-height: var(--lh-heading);
+}
+
+.glossary-pop__roman {
+  margin: 0 0 var(--s-2);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: var(--t-caption);
+  color: var(--mist-300);
+}
+
+.glossary-pop__jyutping {
+  font-style: italic;
+  font-family: Fraunces, Georgia, serif;
+}
+
+.glossary-pop__category {
+  margin: 0 0 var(--s-2);
+}
+
+.glossary-pop__english {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--mist-100);
+}
+
+.glossary-pop__actions {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.glossary-pop__listen {
+  gap: var(--s-2);
+}
+
+.glossary-pop--mobile .glossary-pop__card {
+  left: 1rem !important;
+  right: 1rem !important;
+  bottom: 1rem !important;
+  top: auto !important;
+  width: auto;
+  max-width: none;
+}
+
+@media (max-width: 639px) {
+  .glossary-pop:not(.glossary-pop--mobile) .glossary-pop__card {
+    left: 1rem !important;
+    right: 1rem !important;
+    bottom: 1rem !important;
+    top: auto !important;
+    width: auto;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glossary-pop {
+    transition: none;
+    transform: none;
+  }
+}
+
+
+/* ================================================================
+   MY ATLAS — save stars + FAB + slide panel (Design System extension)
+================================================================ */
+
+/* Star toggle on route cards */
+.route-save-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(216, 210, 191, 0.35);
+  background: rgba(11, 15, 14, 0.45);
+  color: var(--mist-100);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    transform 0.2s var(--ease-emphasized),
+    border-color 0.25s var(--ease-organic),
+    color 0.25s var(--ease-organic),
+    box-shadow 0.25s var(--ease-organic);
+}
+
+.route-save-btn:hover {
+  color: var(--brass-300);
+  border-color: rgba(224, 192, 129, 0.45);
+}
+
+.route-save-btn:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 2px;
+}
+
+.route-save-btn.is-saved {
+  border-color: rgba(184, 146, 74, 0.85);
+  color: var(--brass-300);
+  box-shadow: 0 0 0 1px rgba(184, 146, 74, 0.25);
+}
+
+.route-save-btn__icon {
+  grid-area: 1 / 1;
+  pointer-events: none;
+}
+
+.route-save-btn__icon--filled {
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 0.2s var(--ease-organic),
+    transform 0.2s var(--ease-emphasized);
+}
+
+.route-save-btn.is-saved .route-save-btn__icon--outline {
+  opacity: 0;
+}
+
+.route-save-btn.is-saved .route-save-btn__icon--filled {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes route-save-pop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.route-save-btn.route-save-btn--pop {
+  animation: route-save-pop 0.45s var(--ease-emphasized);
+}
+
+/* Gallery masonry cell wraps thumbnail + save control */
+.gallery-masonry__cell {
+  position: relative;
+  break-inside: avoid;
+  margin-bottom: var(--s-4);
+}
+
+.gallery-masonry__cell .gallery-item {
+  margin-bottom: 0;
+}
+
+.route-save-btn--gallery {
+  z-index: 3;
+}
+
+/* Floating My Atlas control */
+.atlas-fab {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 1050;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 0.55rem 1rem 0.55rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(184, 146, 74, 0.35);
+  background: rgba(8, 12, 11, 0.92);
+  color: var(--mist-50);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: transform 0.25s var(--ease-organic), border-color 0.25s var(--ease-organic);
+}
+
+.atlas-fab:hover {
+  border-color: rgba(224, 192, 129, 0.55);
+  color: var(--mist-25);
+}
+
+.atlas-fab:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 3px;
+}
+
+.atlas-fab__star {
+  flex-shrink: 0;
+  color: var(--brass-400);
+}
+
+.atlas-fab__label {
+  font-weight: 600;
+}
+
+.atlas-fab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: rgba(184, 146, 74, 0.22);
+  color: var(--brass-200);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes atlas-fab-count-bob {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-3px); }
+  70% { transform: translateY(1px); }
+}
+
+.atlas-fab__count.atlas-fab__count--pop {
+  animation: atlas-fab-count-bob 0.45s var(--ease-emphasized);
+}
+
+/* Scrim + panel (align with mobile drawer language) */
+.atlas-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1090;
+  background: rgba(6, 9, 10, 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-organic);
+}
+
+.atlas-scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.atlas-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1100;
+  width: min(86vw, 22rem);
+  max-width: 100%;
+  padding: 0;
+  background: var(--ink-900);
+  border-left: 1px solid rgba(184, 146, 74, 0.18);
+  box-shadow: -28px 0 80px rgba(0, 0, 0, 0.55);
+  transform: translateX(100%);
+  transition: transform 0.35s var(--ease-emphasized);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.atlas-panel.is-open {
+  transform: translateX(0);
+}
+
+.atlas-panel__inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.atlas-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-7) var(--s-5) var(--s-4);
+  border-bottom: 1px solid rgba(216, 210, 191, 0.08);
+}
+
+.atlas-panel__title {
+  margin: 0;
+  font-size: var(--t-subhead);
+  line-height: 1.2;
+  color: var(--mist-50);
+}
+
+.atlas-panel__heading-count {
+  display: inline-block;
+  margin-left: var(--s-2);
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--brass-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.atlas-panel__close {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(216, 210, 191, 0.15);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--mist-200);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease-organic), color 0.2s var(--ease-organic);
+}
+
+.atlas-panel__close:hover {
+  border-color: rgba(224, 192, 129, 0.45);
+  color: var(--brass-300);
+}
+
+.atlas-panel__close:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 2px;
+}
+
+.atlas-panel__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--s-5);
+}
+
+.atlas-panel__empty {
+  margin: 0;
+  color: var(--mist-300);
+  font-size: var(--t-body);
+  line-height: 1.55;
+}
+
+.atlas-panel__list {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.atlas-panel__row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: var(--s-3);
+  row-gap: var(--s-2);
+  align-items: start;
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid rgba(216, 210, 191, 0.08);
+}
+
+.atlas-panel__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.atlas-panel__thumb {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  background: var(--ink-800);
+  align-self: start;
+}
+
+.atlas-panel__text {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.atlas-panel__name {
+  font-weight: 600;
+  color: var(--mist-50);
+  font-size: var(--t-body);
+}
+
+.atlas-panel__name-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-size: var(--t-caption);
+  color: var(--brass-300);
+}
+
+.atlas-panel__view {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+  padding-inline: 0 !important;
+}
+
+.atlas-panel__remove {
+  grid-column: 2;
+  grid-row: 3;
+  justify-self: start;
+  padding-inline: 0 !important;
+}
+
+.atlas-panel__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5) var(--s-6);
+  border-top: 1px solid rgba(216, 210, 191, 0.08);
+}
+
+body.atlas-panel-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-save-btn.route-save-btn--pop,
+  .atlas-fab__count.atlas-fab__count--pop {
+    animation: none;
+  }
+
+  .atlas-scrim,
+  .atlas-panel {
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §22 · WEATHER WIDGET — routes/*.html only
+═══════════════════════════════════════════════════════════════ */
+
+.weather-widget-section {
+  padding-block: 0 var(--s-5);
+}
+
+.weather-widget.subpage-card {
+  border-top: 2px solid var(--brass-500);
+}
+
+.weather-widget__header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+.weather-widget__refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--r-sm, 4px);
+  background: transparent;
+  color: var(--mist-300);
+  cursor: pointer;
+  transition:
+    color 0.2s var(--ease-organic, ease),
+    background-color 0.2s var(--ease-organic, ease);
+}
+
+.weather-widget__refresh:hover,
+.weather-widget__refresh:focus-visible {
+  color: var(--brass-500);
+  background-color: rgba(184, 134, 88, 0.12);
+  outline: none;
+}
+
+.weather-widget__refresh:focus-visible {
+  box-shadow: 0 0 0 2px var(--ink-800), 0 0 0 4px var(--brass-500);
+}
+
+@keyframes weather-refresh-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.weather-widget__refresh.weather-widget__refresh--spin svg {
+  animation: weather-refresh-spin 0.65s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .weather-widget__refresh.weather-widget__refresh--spin svg {
+    animation: none;
+  }
+}
+
+.weather-widget__content {
+  min-height: 4rem;
+}
+
+.weather-widget__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+  align-items: start;
+}
+
+@media (min-width: 721px) {
+  .weather-widget__layout {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+}
+
+.weather-widget__icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.weather-widget__stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+}
+
+.weather-stat {
+  flex: 1 1 calc(50% - var(--s-3));
+  min-width: 7rem;
+}
+
+@media (min-width: 480px) {
+  .weather-stat {
+    flex: 1 1 auto;
+    min-width: 5.5rem;
+  }
+}
+
+.weather-widget .weather-stat .stat__value {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
+  color: var(--mist-50);
+  line-height: var(--lh-heading, 1.25);
+}
+
+.weather-widget .weather-stat .stat__value.stat__value--large {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+}
+
+.weather-widget .weather-stat .stat__label {
+  margin: 0 0 var(--s-1);
+}
+
+.weather-widget__location {
+  margin: var(--s-3) 0 0;
+  font-size: 0.875rem;
+  color: var(--mist-300);
+}
+
+.weather-widget__meta {
+  margin: var(--s-4) 0 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--brass-500);
+  letter-spacing: 0.02em;
+}
+
+.weather-widget__error {
+  margin: 0;
+  color: var(--mist-300);
+}
+
+.weather-widget__error a {
+  color: var(--brass-500);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.weather-widget__error a:hover,
+.weather-widget__error a:focus-visible {
+  color: var(--brass-400);
+}
+
+@keyframes weather-widget-loading-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.weather-widget__loading {
+  margin: 0;
+  color: var(--mist-300);
+  animation: weather-widget-loading-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .weather-widget__loading {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
+/* ================================================================
+   §23 · PRINT — utilities, A4 route hiking sheets, My Atlas export
+================================================================ */
+
+.print-only {
+  display: none !important;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* ── My Atlas panel export (not route detail pages) ───────────── */
+  body:not(.route-print-sheet) .nav,
+  body:not(.route-print-sheet) .site-footer,
+  body:not(.route-print-sheet) .mobile-drawer,
+  body:not(.route-print-sheet) .mobile-drawer__scrim,
+  body:not(.route-print-sheet) #atlas-fab,
+  body:not(.route-print-sheet) .atlas-scrim,
+  body:not(.route-print-sheet) main {
+    display: none !important;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel {
+    display: flex !important;
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #111 !important;
+    overflow: visible !important;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__close,
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__footer {
+    display: none !important;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__header {
+    border-bottom: 1px solid #ccc;
+    padding: 0 0 1rem;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__title {
+    color: #111;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__body {
+    padding: 1rem 0;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__name {
+    color: #111;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__name-zh {
+    color: #333;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__row {
+    border-color: #ddd;
+    break-inside: avoid;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel .atlas-panel__thumb {
+    border: 1px solid #ddd;
+  }
+
+  body:not(.route-print-sheet) #atlas-panel a {
+    color: #0b57d0 !important;
+    text-decoration: underline;
+  }
+
+  /* ── Route detail hiking sheet (A4) ──────────────────────────── */
+  body.route-print-sheet .nav,
+  body.route-print-sheet .site-footer,
+  body.route-print-sheet .mobile-drawer,
+  body.route-print-sheet .mobile-drawer__scrim,
+  body.route-print-sheet #atlas-fab,
+  body.route-print-sheet .atlas-scrim,
+  body.route-print-sheet .atlas-panel,
+  body.route-print-sheet .pwa-offline-banner,
+  body.route-print-sheet .pwa-install-toast,
+  body.route-print-sheet .grain,
+  body.route-print-sheet .vignette,
+  body.route-print-sheet .route-save-btn,
+  body.route-print-sheet .weather-widget__loading,
+  body.route-print-sheet .route-print-omit,
+  body.route-print-sheet .glossary-pop,
+  body.route-print-sheet canvas {
+    display: none !important;
+  }
+
+  body.route-print-sheet svg {
+    display: none !important;
+  }
+
+  body.route-print-sheet .subpage-hero .eyebrow,
+  body.route-print-sheet .subpage-hero .section-lead {
+    display: none !important;
+  }
+
+  body.route-print-sheet article.route-card[aria-hidden='true'] {
+    display: none !important;
+  }
+
+  body.route-print-sheet .btn {
+    display: none !important;
+  }
+
+  body.route-print-sheet main {
+    display: block !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  body.route-print-sheet {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 12pt !important;
+    line-height: 1.45 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  body.route-print-sheet .section-headline,
+  body.route-print-sheet h1 {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-size: 18pt !important;
+    font-weight: 600 !important;
+    color: #000 !important;
+    margin: 0 0 0.75rem !important;
+  }
+
+  body.route-print-sheet h2,
+  body.route-print-sheet h3 {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-size: 14pt !important;
+    font-weight: 600 !important;
+    color: #000 !important;
+  }
+
+  body.route-print-sheet .eyebrow {
+    font-family: system-ui, -apple-system, sans-serif !important;
+    font-size: 9pt !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: #333 !important;
+  }
+
+  body.route-print-sheet p,
+  body.route-print-sheet dd,
+  body.route-print-sheet dt,
+  body.route-print-sheet li {
+    font-family: system-ui, -apple-system, sans-serif !important;
+    font-size: 12pt !important;
+    color: #000 !important;
+  }
+
+  body.route-print-sheet .route-card__meta dt {
+    color: #222 !important;
+  }
+
+  body.route-print-sheet .container,
+  body.route-print-sheet .subpage-grid {
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body.route-print-sheet .subpage-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    padding: 0.75rem 1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  body.route-print-sheet .route-print-banner {
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 2px solid #000 !important;
+  }
+
+  body.route-print-sheet .route-print-banner__line {
+    margin: 0 !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    font-size: 10pt !important;
+    color: #000 !important;
+  }
+
+  body.route-print-sheet .route-print-footer {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+    margin-top: 1.25rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid #999 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body.route-print-sheet .route-print-notes {
+    flex: 1 1 55%;
+    min-width: 12rem;
+  }
+
+  body.route-print-sheet .route-print-notes__label {
+    margin: 0 0 0.35rem !important;
+    font-size: 11pt !important;
+    font-weight: 600 !important;
+    color: #000 !important;
+  }
+
+  body.route-print-sheet .route-print-notes__lines {
+    height: calc(8 * 1.35rem);
+    background: repeating-linear-gradient(
+      transparent 0,
+      transparent calc(1.35rem - 1px),
+      #888 calc(1.35rem - 1px),
+      #888 1.35rem
+    );
+  }
+
+  body.route-print-sheet .route-print-qr {
+    display: block !important;
+    width: 100px !important;
+    height: 100px !important;
+    flex: 0 0 auto;
+    border: 1px solid #ccc !important;
+  }
+}
+
+
+/* ================================================================
+   §24 · PWA — install toast + offline banner
+================================================================ */
+
+.pwa-offline-banner {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  z-index: 1101;
+  padding: var(--s-2) var(--s-4);
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--ink-900);
+  background: rgba(224, 192, 129, 0.92);
+  border-bottom: 1px solid rgba(184, 146, 74, 0.55);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.pwa-install-toast {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: max(1rem, env(safe-area-inset-left));
+  z-index: 1080;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  max-width: min(32rem, calc(100vw - 2rem));
+  margin-inline: auto;
+  margin-bottom: env(safe-area-inset-bottom);
+  border-radius: var(--r-md);
+  border: 1px solid rgba(184, 146, 74, 0.35);
+  background: rgba(11, 15, 14, 0.94);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.pwa-install-toast__text {
+  margin: 0;
+  flex: 1 1 12rem;
+  font-size: var(--t-body);
+  line-height: 1.45;
+  color: var(--mist-50);
+}
+
+.pwa-install-toast__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.pwa-install-toast__close {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(216, 210, 191, 0.2);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--mist-200);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease-organic), color 0.2s var(--ease-organic);
+}
+
+.pwa-install-toast__close:hover {
+  border-color: rgba(224, 192, 129, 0.5);
+  color: var(--brass-300);
+}
+
+.pwa-install-toast__close:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 2px;
+}
+
+@media (max-width: 500px) {
+  .pwa-install-toast {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-3);
+  }
+
+  .pwa-install-toast__text {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .pwa-install-toast__actions {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+
+  .pwa-install-toast__install {
+    padding: var(--s-3) var(--s-4);
+  }
+}
+
+
+/* ================================================================
+   Route comparison — chips · comparison table · mobile cards
+================================================================ */
+
+.compare-picker-section {
+  padding-block: var(--s-5) var(--s-4);
+}
+
+.compare-picker-sticky {
+  padding-bottom: var(--s-3);
+}
+
+@media (min-width: 901px) {
+  .compare-picker-sticky {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--s-3));
+    z-index: 30;
+    padding-block: var(--s-3);
+    margin-inline: calc(var(--s-3) * -1);
+    padding-inline: var(--s-3);
+    background: linear-gradient(
+      180deg,
+      rgba(11, 15, 14, 0.97) 70%,
+      rgba(11, 15, 14, 0.82) 100%
+    );
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184, 146, 74, 0.12);
+  }
+}
+
+.compare-chip-track-wrap {
+  overflow: hidden;
+}
+
+.compare-chip-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--s-2);
+  overflow-x: auto;
+  padding: var(--s-2) 0;
+  scrollbar-width: thin;
+}
+
+.compare-chip {
+  flex: 0 0 auto;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(216, 210, 191, 0.22);
+  background: rgba(17, 23, 21, 0.55);
+  color: var(--mist-100);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease-organic),
+    background 0.2s var(--ease-organic),
+    color 0.2s var(--ease-organic),
+    transform 0.2s var(--ease-organic);
+}
+
+.compare-chip:hover {
+  border-color: rgba(224, 192, 129, 0.45);
+  color: var(--brass-200);
+}
+
+.compare-chip:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 2px;
+}
+
+.compare-chip--selected {
+  border-color: rgba(184, 146, 74, 0.85);
+  background: rgba(184, 146, 74, 0.18);
+  color: var(--brass-100);
+  box-shadow: 0 0 0 1px rgba(184, 146, 74, 0.25);
+}
+
+.compare-live-region {
+  margin: var(--s-3) 0 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  color: var(--mist-400);
+  letter-spacing: 0.04em;
+}
+
+.compare-results-section {
+  padding-block: var(--s-5) var(--s-9);
+}
+
+.compare-empty .btn {
+  margin-top: var(--s-5);
+}
+
+.compare-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-inline: calc(var(--s-3) * -1);
+  padding-inline: var(--s-3);
+}
+
+.compare-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  --compare-gap: var(--s-4);
+}
+
+.compare-table thead th {
+  padding: var(--s-4) var(--s-3);
+  text-align: left;
+  vertical-align: bottom;
+  border-bottom: 1px solid rgba(184, 146, 74, 0.22);
+  font-family: 'Fraunces', serif;
+  font-size: var(--t-body);
+  color: var(--mist-50);
+}
+
+.compare-th-en {
+  display: block;
+  font-weight: 600;
+}
+
+.compare-th-zh {
+  display: block;
+  margin-top: var(--s-1);
+  font-family: 'Noto Serif TC', serif;
+  font-size: var(--t-caption);
+  color: var(--brass-300);
+}
+
+.compare-table tbody th[scope='row'] {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  min-width: 8.5rem;
+  padding: var(--s-4) var(--s-3) var(--s-4) 0;
+  text-align: left;
+  vertical-align: top;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mist-400);
+  background: var(--ink-900);
+  border-bottom: 1px solid rgba(216, 210, 191, 0.08);
+}
+
+.compare-table tbody td {
+  padding: var(--s-4) var(--s-3);
+  vertical-align: top;
+  border-bottom: 1px solid rgba(216, 210, 191, 0.08);
+  color: var(--mist-80);
+  font-size: var(--t-body);
+  line-height: 1.5;
+}
+
+.compare-corner {
+  width: 8.5rem;
+}
+
+.compare-hero-img {
+  display: block;
+  width: 100%;
+  max-width: 12rem;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  background: var(--ink-800);
+}
+
+.compare-name-en {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  color: var(--mist-50);
+}
+
+.compare-name-zh {
+  font-family: 'Noto Serif TC', serif;
+  color: var(--brass-300);
+}
+
+.compare-diff-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  align-items: flex-start;
+}
+
+.compare-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.compare-rating span {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--brass-400);
+  box-shadow: 0 0 8px rgba(184, 146, 74, 0.35);
+}
+
+.compare-rating span.is-empty {
+  background: rgba(216, 210, 191, 0.12);
+  box-shadow: none;
+}
+
+.compare-diff-label {
+  font-size: var(--t-caption);
+  color: var(--mist-300);
+}
+
+.compare-td--actions {
+  position: relative;
+  min-height: 3.25rem;
+}
+
+.compare-td-actions-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.compare-td--actions .route-save-btn {
+  position: relative;
+  top: auto;
+  right: auto;
+}
+
+@keyframes compare-col-enter {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.compare-cell-anim {
+  animation: compare-col-enter 0.3s cubic-bezier(0.2, 0, 0, 1) forwards;
+  animation-delay: calc(var(--compare-col, 0) * 55ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compare-cell-anim {
+    animation: none !important;
+  }
+}
+
+.compare-desktop-wrap {
+  display: block;
+}
+
+.compare-mobile-wrap {
+  display: none;
+}
+
+.compare-mobile-card {
+  margin-bottom: var(--s-5);
+}
+
+.compare-mobile-card__img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--r-md);
+  margin-bottom: var(--s-4);
+}
+
+.compare-mobile-card__title {
+  margin: 0 0 var(--s-4);
+  font-family: 'Fraunces', serif;
+  font-size: var(--t-subhead);
+  color: var(--mist-50);
+}
+
+.compare-mobile-card__title span {
+  display: block;
+  margin-top: var(--s-2);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.85em;
+  color: var(--brass-300);
+}
+
+.compare-mobile-dl {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0 0 var(--s-5);
+}
+
+.compare-mobile-dl div {
+  display: grid;
+  gap: var(--s-1);
+  padding-top: var(--s-3);
+  border-top: 1px solid rgba(216, 210, 191, 0.1);
+}
+
+.compare-mobile-dl dt {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--t-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mist-400);
+}
+
+.compare-mobile-dl dd {
+  margin: 0;
+  color: var(--mist-80);
+}
+
+.compare-mobile-card__actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.compare-mobile-card__actions .route-save-btn {
+  position: relative;
+  top: auto;
+  right: auto;
+}
+
+@media (max-width: 699px) {
+  .compare-desktop-wrap {
+    display: none;
+  }
+
+  .compare-mobile-wrap {
+    display: block;
+  }
+
+  .compare-table-scroll {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+}

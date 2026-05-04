@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Journey through Hong Kong's hidden feng shui landscapes, dragon-vein ridges, and the mountain myths that breathe beneath the city.">
+
+  <!-- ============================================================
+       SEO · canonical · theme · social preview
+  ============================================================ -->
+  <link rel="canonical" href="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/index.html">
+  <meta name="theme-color" content="#0B0F0E">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/images/icon-192.png">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Beyond the Map">
+  <meta property="og:title"       content="Beyond the Map · 風水之外 · Hong Kong Hidden Nature Myths">
+  <meta property="og:description" content="Journey through Hong Kong's hidden feng shui landscapes, dragon-vein ridges, and the mountain myths that breathe beneath the city.">
+  <meta property="og:url"         content="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/index.html">
+  <meta property="og:image"       content="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/assets/images/og-cover.jpg">
+
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Beyond the Map · 風水之外">
+  <meta name="twitter:description" content="A contemplative atlas of Hong Kong's hidden feng shui landscapes and ridge myths.">
+  <meta name="twitter:image"       content="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/assets/images/og-cover.jpg">
+
+  <title>Beyond the Map · 風水之外 · Hong Kong Hidden Nature Myths</title>
+
+  <!-- ============================================================
+       FONTS — Google Fonts (exact spec from Design System §2.2)
+       Fraunces (variable) · Manrope · Noto Serif TC · Noto Sans TC · JetBrains Mono
+  ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Manrope:wght@300..800&family=Noto+Sans+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;600;900&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
+
+  <!-- ============================================================
+       SPLITTING.JS — CSS companion (char-span layout)
+  ============================================================ -->
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+
+  <!-- Site stylesheet -->
+  <link rel="stylesheet" href="style.css?v=20260504-fixes">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       ATMOSPHERIC LAYER 0 — SVG Noise Grain (fixed, full-viewport)
+       Design System §3.6 — mix-blend-mode: overlay, 4% alpha baked into filter
+  ============================================================ -->
+  <svg class="grain" aria-hidden="true" focusable="false">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0.96  0 0 0 0 0.95  0 0 0 0 0.92  0 0 0 0.04 0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+  </svg>
+
+  <!-- ============================================================
+       ATMOSPHERIC LAYER 1 — Radial Vignette (fixed, 30% strength)
+       Pulls the eye to center, deepens edges to --ink-950
+  ============================================================ -->
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       ACCESSIBILITY — Skip-to-content (Design System §10.1)
+  ============================================================ -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ============================================================
+       NAVIGATION (Design System §6.2)
+       Sticky top bar · auto-hides on scroll-down · glass morphism
+  ============================================================ -->
+  <header class="nav" id="main-nav" role="banner">
+    <div class="container container--wide nav__inner">
+
+      <!-- Logo / Wordmark -->
+      <a href="index.html" class="nav__logo" aria-label="Beyond the Map — Home">
+        <span class="nav__logo-latin">Beyond the Map</span>
+        <span class="nav__logo-chinese" lang="zh-Hant">風水</span>
+      </a>
+
+      <!-- Primary navigation links -->
+      <nav role="navigation" aria-label="Main navigation">
+        <ul class="nav__links" role="list">
+          <li><a href="index.html"    class="nav__link is-active" aria-current="page" data-en="Home" data-zh="首頁">Home</a></li>
+          <li><a href="explore.html"  class="nav__link" data-en="Explore" data-zh="探索">Explore</a></li>
+          <li><a href="myths.html"    class="nav__link" data-en="Myths &amp; Meanings" data-zh="神話與寓意">Myths &amp; Meanings</a></li>
+          <li><a href="map.html"      class="nav__link" data-en="Map" data-zh="地圖">Map</a></li>
+          <li><a href="compare.html"  class="nav__link" data-en="Compare" data-zh="比較">Compare</a></li>
+          <li><a href="gallery.html"  class="nav__link" data-en="Gallery" data-zh="藝廊">Gallery</a></li>
+          <li><a href="about.html"    class="nav__link" data-en="About" data-zh="關於">About</a></li>
+        </ul>
+      </nav>
+
+      <!-- Language toggle + hamburger -->
+      <div class="nav__actions">
+        <button class="nav__lang-toggle" aria-label="Switch to Traditional Chinese">
+          <span class="lang-opt lang-opt--active">EN</span>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <span class="lang-opt" lang="zh-Hant">繁</span>
+        </button>
+        <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main id="main-content">
+
+    <!-- =========================================================
+         SECTION 00 — HERO (100vh)
+         Design System §5.1 · cinematic dark entry
+         Three.js mist particles · layered SVG mountains · GSAP reveal
+    ========================================================= -->
+    <section class="hero" id="hero" aria-label="Hero — Beyond the Map">
+
+      <!-- Three.js mist particle canvas (decorative, mobile disabled) -->
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+      <!-- Layered atmospheric background (no external images needed) -->
+      <div class="hero-bg" aria-hidden="true">
+
+        <!-- SVG mountain silhouette — 3 depth layers -->
+        <svg class="hero-mountains"
+             viewBox="0 0 1600 900"
+             preserveAspectRatio="xMidYMax slice"
+             aria-hidden="true"
+             focusable="false">
+          <defs>
+            <!-- Sky gradient: ink-900 top → teal-700 horizon → ink-900 base -->
+            <linearGradient id="heroSkyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#0B0F0E"/>
+              <stop offset="55%"  stop-color="#0F2730"/>
+              <stop offset="100%" stop-color="#0B0F0E"/>
+            </linearGradient>
+            <!-- Star/mist horizontal glow at horizon -->
+            <linearGradient id="horizonGlow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="transparent"/>
+              <stop offset="30%"  stop-color="rgba(27,77,94,0.3)"/>
+              <stop offset="50%"  stop-color="rgba(27,77,94,0.5)"/>
+              <stop offset="70%"  stop-color="rgba(27,77,94,0.3)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Sky fill -->
+          <rect width="1600" height="900" fill="url(#heroSkyGrad)"/>
+
+          <!-- Horizon glow band (evokes distant city lights through mist) -->
+          <rect x="0" y="440" width="1600" height="80" fill="url(#horizonGlow)" opacity="0.6"/>
+
+          <!-- Layer 1: Farthest ridge (most muted, teal-washed) -->
+          <path fill="rgba(15,39,48,0.65)"
+                d="M0,630 C80,575 175,545 280,558 C385,571 460,535 565,550
+                   C670,565 755,528 865,543 C975,558 1065,522 1180,538
+                   C1295,554 1390,518 1490,533 C1550,542 1580,535 1600,538
+                   L1600,900 L0,900 Z"/>
+
+          <!-- Layer 2: Mid ridge (slightly lighter, defining main ridge line) -->
+          <path fill="rgba(11,23,32,0.72)"
+                d="M0,700 C110,662 200,645 320,658 C440,671 510,648 630,663
+                   C750,678 840,650 960,666 C1080,682 1190,655 1320,670
+                   C1430,682 1525,670 1600,675
+                   L1600,900 L0,900 Z"/>
+
+          <!-- Layer 3: Nearest foreground ridge (darkest, closest) -->
+          <path fill="rgba(11,15,14,0.88)"
+                d="M0,800 C150,776 250,765 380,779 C510,792 600,773 730,787
+                   C860,801 960,780 1090,793 C1220,806 1360,786 1490,799
+                   C1555,806 1585,800 1600,803
+                   L1600,900 L0,900 Z"/>
+
+          <!-- Subtle star field — scattered small circles -->
+          <g opacity="0.25">
+            <circle cx="120" cy="80"  r="1"   fill="#D8D2BF"/>
+            <circle cx="340" cy="140" r="0.8" fill="#D8D2BF"/>
+            <circle cx="520" cy="60"  r="1.2" fill="#D8D2BF"/>
+            <circle cx="680" cy="110" r="0.7" fill="#D8D2BF"/>
+            <circle cx="850" cy="45"  r="1"   fill="#D8D2BF"/>
+            <circle cx="1020" cy="90" r="0.9" fill="#D8D2BF"/>
+            <circle cx="1180" cy="55" r="1.1" fill="#D8D2BF"/>
+            <circle cx="1380" cy="130" r="0.8" fill="#D8D2BF"/>
+            <circle cx="200" cy="200" r="0.6" fill="#D8D2BF"/>
+            <circle cx="460" cy="175" r="0.9" fill="#D8D2BF"/>
+            <circle cx="780" cy="160" r="0.7" fill="#D8D2BF"/>
+            <circle cx="1100" cy="185" r="1"  fill="#D8D2BF"/>
+            <circle cx="1450" cy="70"  r="0.8" fill="#D8D2BF"/>
+          </g>
+        </svg>
+
+        <!-- Animated fog band (Layer 2 atmospheric: drifts horizontally) -->
+        <div class="hero-fog" aria-hidden="true"></div>
+      </div>
+
+      <!-- Scroll-out scrim: darkens as user scrolls away -->
+      <div class="hero-scrim" aria-hidden="true"></div>
+
+      <!-- ── Hero Content ── -->
+      <div class="hero-content container">
+
+        <!-- Eyebrow / kicker (JetBrains Mono, brass, uppercase) -->
+        <p class="eyebrow hero-eyebrow">
+          <span lang="zh-Hant">香港</span>&nbsp;·&nbsp;Hong Kong&nbsp;·&nbsp;Est. 2026
+        </p>
+
+        <!-- Main title — Splitting.js will wrap each char in <span class="char"> -->
+        <h1 class="hero-title display-organic" data-splitting aria-label="Beyond the Map"
+            data-en="Beyond the Map" data-zh="風水之外">
+          Beyond the Map
+        </h1>
+
+        <!-- Chinese display title (Noto Serif TC, brass) -->
+        <p class="hero-title-chinese" lang="zh-Hant" aria-hidden="true" data-zh="風水之外">風水之外</p>
+
+        <!-- Subtitle -->
+        <p class="hero-subtitle"
+           data-en="Where ancient geomancy meets the city's forgotten ridgelines. Uncover the dragon veins, mountain spirits, and feng shui landscapes that breathe beneath Hong Kong's skyline."
+           data-zh="古老的堪輿之術，與這座城市被遺忘的山脊在此相遇。揭開隱於香港天際線之下的龍脈、山靈與風水山水，它們仍在悄然呼吸。">
+          Where ancient geomancy meets the city's forgotten ridgelines.
+          Uncover the dragon veins, mountain spirits, and feng shui
+          landscapes that breathe beneath Hong Kong's skyline.
+        </p>
+
+        <!-- Call-to-action pair -->
+        <div class="hero-cta" role="group" aria-label="Primary actions">
+          <a href="#bento-myths" class="btn btn--primary"
+             data-en="Begin the Journey" data-zh="啟程探索">
+            Begin the Journey
+          </a>
+          <a href="#trail-map" class="btn btn--ghost"
+             data-en="Explore the Map" data-zh="探索地圖">
+            Explore the Map
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Scroll indicator: animated vertical line with label -->
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">Scroll</span>
+      </div>
+
+    </section>
+    <!-- /HERO -->
+
+
+    <!-- =========================================================
+         SECTION 01 — INTERACTIVE TRAIL MAP
+         Original proposal feature: click Hong Kong trails / districts
+         to reveal the hiking route, myth, and visitor information.
+    ========================================================= -->
+    <section class="trail-map-section" id="trail-map" aria-labelledby="trail-map-heading">
+      <div class="container container--wide">
+        <header class="section-header trail-map-header">
+          <p class="eyebrow" data-en="Interactive Map" data-zh="互動地圖">Interactive Map · <span lang="zh-Hant">互動地圖</span></p>
+          <h2 id="trail-map-heading" class="bilingual-heading section-headline"
+              data-en="Trails, Myths, and Hidden Districts"
+              data-zh="山徑、傳說，與隱密之地">
+            <span class="latin display-sharp">Trails, Myths, and Hidden Districts</span>
+            <span class="chinese" lang="zh-Hant">山徑與傳說</span>
+          </h2>
+          <p class="section-lead">
+            Select a trail line or district marker to open the story behind the route.
+          </p>
+        </header>
+
+        <div class="trail-map-layout">
+          <aside class="route-panel" aria-label="Trail selector">
+            <h3>Explore Routes</h3>
+            <p class="panel-note">Hover a row to preview the trail. Click to open its full myth.</p>
+            <!-- Wrapper enables the mobile chip-row layout (style.css §18) -->
+            <div class="route-panel__list" role="list">
+              <button class="route-list-item is-active" type="button" data-trail-select="maclehose"><span></span>MacLehose Trail</button>
+              <button class="route-list-item" type="button" data-trail-select="lion-rock"><span></span>Lion Rock</button>
+              <button class="route-list-item" type="button" data-trail-select="dragons-back"><span></span>Dragon's Back</button>
+              <button class="route-list-item" type="button" data-trail-select="lantau"><span></span>Lantau Peak</button>
+              <button class="route-list-item" type="button" data-trail-select="cheung-chau"><span></span>Cheung Chau</button>
+              <button class="route-list-item" type="button" data-trail-select="pat-sin-leng"><span></span>Pat Sin Leng</button>
+              <button class="route-list-item" type="button" data-trail-select="sunset-peak"><span></span>Sunset Peak</button>
+            </div>
+          </aside>
+
+          <div class="map-card" aria-label="Interactive stylised map of Hong Kong hiking myths">
+            <svg class="hk-map" viewBox="0 0 1000 690" role="img" aria-labelledby="hk-map-title hk-map-desc">
+              <title id="hk-map-title">Hong Kong feng shui route map</title>
+              <desc id="hk-map-desc">A stylised dark map of Hong Kong with seven clickable feng-shui routes.</desc>
+              <defs>
+                <radialGradient id="islandFill" cx="50%" cy="35%" r="70%">
+                  <stop offset="0%"  stop-color="#1A2220"/>
+                  <stop offset="100%" stop-color="#0B0F0E"/>
+                </radialGradient>
+                <radialGradient id="islandFillHover" cx="50%" cy="35%" r="70%">
+                  <stop offset="0%"  stop-color="#242E2B"/>
+                  <stop offset="100%" stop-color="#0F2730"/>
+                </radialGradient>
+                <linearGradient id="seaFill" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%"  stop-color="#06090A"/>
+                  <stop offset="100%" stop-color="#0B0F0E"/>
+                </linearGradient>
+                <filter id="routeGlow">
+                  <feGaussianBlur stdDeviation="4" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <rect width="1000" height="690" rx="22" fill="url(#seaFill)"/>
+
+              <path class="contour" d="M95 230 C240 120 390 180 490 135 C620 80 760 120 910 230"/>
+              <path class="contour" d="M95 495 C210 430 325 470 420 430 C520 390 640 435 820 388"/>
+              <path class="contour" d="M150 610 C330 560 500 625 700 565 C790 540 860 565 930 525"/>
+
+              <g class="region region-nt" data-region="New Territories">
+                <path d="M135 130 C220 55 360 48 462 95 C548 134 600 90 690 116 C805 148 892 225 900 310 C812 337 735 300 666 330 C577 368 505 340 410 365 C305 393 185 350 105 298 C78 235 82 172 135 130 Z"/>
+                <text x="440" y="222">New Territories</text>
+              </g>
+
+              <g class="region region-kowloon" data-region="Kowloon">
+                <path d="M482 398 C540 365 632 362 705 392 C696 439 642 467 563 464 C510 462 474 438 482 398 Z"/>
+                <text x="565" y="421">Kowloon</text>
+              </g>
+
+              <g class="region region-hki" data-region="Hong Kong Island">
+                <path d="M505 520 C595 476 732 477 840 516 C810 577 720 596 610 585 C535 578 490 550 505 520 Z"/>
+                <text x="618" y="548">Hong Kong Island</text>
+              </g>
+
+              <g class="region region-lantau" data-region="Lantau Island">
+                <path d="M88 460 C150 365 286 365 382 438 C348 540 238 590 115 552 C59 525 52 496 88 460 Z"/>
+                <text x="184" y="484">Lantau Island</text>
+              </g>
+
+              <g class="region region-islands" data-region="Outlying Islands">
+                <ellipse cx="415" cy="585" rx="36" ry="24"/>
+                <ellipse cx="455" cy="625" rx="26" ry="18"/>
+                <ellipse cx="489" cy="560" rx="22" ry="15"/>
+                <ellipse cx="642" cy="632" rx="62" ry="27"/>
+                <text x="388" y="666">Outlying Islands</text>
+              </g>
+
+              <g class="route-labels">
+                <text x="606" y="124">MacLehose Trail</text>
+                <text x="495" y="376">Lion Rock</text>
+                <text x="722" y="510">Dragon's Back</text>
+                <text x="124" y="414">Lantau Peak</text>
+                <text x="354" y="555">Cheung Chau</text>
+                <text x="660" y="148">Pat Sin Leng</text>
+                <text x="263" y="423">Sunset Peak</text>
+              </g>
+
+              <g class="routes">
+                <path class="route-hit" data-trail="maclehose" tabindex="0" role="button" aria-label="MacLehose Trail" d="M188 260 C285 166 392 220 488 178 C585 135 668 195 805 235"/>
+                <path class="route-path" data-trail="maclehose" d="M188 260 C285 166 392 220 488 178 C585 135 668 195 805 235"/>
+
+                <path class="route-hit" data-trail="lion-rock" tabindex="0" role="button" aria-label="Lion Rock" d="M495 388 C540 365 615 365 695 392"/>
+                <path class="route-path" data-trail="lion-rock" d="M495 388 C540 365 615 365 695 392"/>
+
+                <path class="route-hit" data-trail="dragons-back" tabindex="0" role="button" aria-label="Dragon's Back" d="M735 540 C770 525 810 555 832 535"/>
+                <path class="route-path" data-trail="dragons-back" d="M735 540 C770 525 810 555 832 535"/>
+
+                <path class="route-hit" data-trail="lantau" tabindex="0" role="button" aria-label="Lantau Peak" d="M122 510 C172 430 260 407 342 468"/>
+                <path class="route-path" data-trail="lantau" d="M122 510 C172 430 260 407 342 468"/>
+
+                <path class="route-hit" data-trail="cheung-chau" tabindex="0" role="button" aria-label="Cheung Chau" d="M390 586 C410 557 435 595 454 565"/>
+                <path class="route-path" data-trail="cheung-chau" d="M390 586 C410 557 435 595 454 565"/>
+
+                <path class="route-hit" data-trail="pat-sin-leng" tabindex="0" role="button" aria-label="Pat Sin Leng" d="M655 175 C700 158 750 158 805 165"/>
+                <path class="route-path" data-trail="pat-sin-leng" d="M655 175 C700 158 750 158 805 165"/>
+
+                <path class="route-hit" data-trail="sunset-peak" tabindex="0" role="button" aria-label="Sunset Peak" d="M250 460 C290 432 330 432 360 458"/>
+                <path class="route-path" data-trail="sunset-peak" d="M250 460 C290 432 330 432 360 458"/>
+              </g>
+
+              <g class="route-points">
+                <circle cx="188" cy="260" r="5"/><circle cx="805" cy="235" r="5"/>
+                <circle cx="495" cy="388" r="5"/><circle cx="695" cy="392" r="5"/>
+                <circle cx="735" cy="540" r="5"/><circle cx="832" cy="535" r="5"/>
+                <circle cx="122" cy="510" r="5"/><circle cx="342" cy="468" r="5"/>
+                <circle cx="390" cy="586" r="5"/><circle cx="454" cy="565" r="5"/>
+                <circle cx="655" cy="175" r="5"/><circle cx="805" cy="165" r="5"/>
+                <circle cx="250" cy="460" r="5"/><circle cx="360" cy="458" r="5"/>
+              </g>
+            </svg>
+
+            <article class="info-card" data-trail-card aria-live="polite">
+              <button class="info-card__close" type="button" data-trail-close aria-label="Close trail card">×</button>
+              <p class="info-card__eyebrow" data-trail-category>Long-Distance Trail</p>
+              <h3 class="info-card__title" data-trail-title>New Territories</h3>
+              <p class="info-card__subtitle" data-trail-subtitle>The MacLehose Trail — 100 km across wild Hong Kong</p>
+              <div class="info-card__stats">
+                <div class="stat">
+                  <p class="stat__label">Difficulty</p>
+                  <div class="stat__value stat-rating" data-trail-rating aria-label="Difficulty rating">
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+                <div class="stat">
+                  <p class="stat__label">Duration</p>
+                  <p class="stat__value" data-trail-time></p>
+                </div>
+                <div class="stat">
+                  <p class="stat__label">Transport</p>
+                  <p class="stat__value" data-trail-transport></p>
+                </div>
+                <div class="stat">
+                  <p class="stat__label">Route</p>
+                  <p class="stat__value" data-trail-route></p>
+                </div>
+              </div>
+              <hr class="info-card__rule" />
+              <p class="info-card__desc" data-trail-myth></p>
+              <a class="info-card__cta" href="map.html?trail=maclehose#trail-map" data-trail-map-link>
+                <span>Explore Detail</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         SECTION 01 — DRAGON VEIN PINNED SCROLLYTELLING (300vh)
+         Design System §5.1 — the signature feature
+         SVG topo map + stroke-dashoffset animation + 4 story panels
+    ========================================================= -->
+    <section class="dragon-vein-section" id="dragon-vein" aria-label="Dragon Vein — Hong Kong Feng Shui Map">
+
+      <!-- This inner element is what gets PINNED by GSAP ScrollTrigger.
+           It sticks at 100vh while the outer section scrolls 300vh worth. -->
+      <div class="dragon-vein-sticky">
+
+        <!-- Section header (visible before scroll begins) -->
+        <div class="dv-header">
+          <p class="eyebrow" data-en="Dragon Vein · Feng Shui" data-zh="龍脈 · 風水">
+            <span lang="zh-Hant">龍脈</span>&nbsp;·&nbsp;Dragon Vein&nbsp;·&nbsp;Feng Shui
+          </p>
+          <h2 class="bilingual-heading section-headline"
+              data-en="The Dragon's Path"
+              data-zh="龍脈之徑">
+            <span class="latin display-sharp">The Dragon's Path</span>
+            <span class="chinese" lang="zh-Hant">龍脈</span>
+          </h2>
+          <p class="dv-header__sub">
+            Five centuries of feng shui knowledge, drawn in light across the New Territories.
+          </p>
+        </div>
+
+        <!-- ── Topographic SVG Map ── -->
+        <div class="topo-map-frame" aria-label="Swipe horizontally to explore the Dragon Vein map">
+        <svg class="topo-map"
+             viewBox="0 0 1600 900"
+             aria-label="Stylised topographic map of Hong Kong New Territories showing the dragon vein path"
+             role="img">
+          <defs>
+            <!-- Map background gradient -->
+            <linearGradient id="mapBg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#06090A"/>
+              <stop offset="100%" stop-color="#0B0F0E"/>
+            </linearGradient>
+
+            <!-- Dot-grid pattern (topographic feel) -->
+            <pattern id="dotGrid" width="45" height="45" patternUnits="userSpaceOnUse">
+              <circle cx="22.5" cy="22.5" r="0.9" fill="#242E2B"/>
+            </pattern>
+
+            <!-- Gold glow filter for dragon vein -->
+            <filter id="veinGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+            <!-- Softer glow for pin markers -->
+            <filter id="pinGlow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Map background -->
+          <rect width="1600" height="900" fill="url(#mapBg)"/>
+          <!-- Dot grid overlay -->
+          <rect width="1600" height="900" fill="url(#dotGrid)" opacity="0.7"/>
+
+          <!-- ── Topographic contour groups ──
+               Each mountain peak has 4 concentric ellipse rings,
+               opacity 0.18 so they read as subtle terrain texture -->
+
+          <!-- Tai Mo Shan 大帽山 (cx:255, cy:235) — Hong Kong's highest peak -->
+          <g class="mountain-group" opacity="0.22" aria-hidden="true">
+            <ellipse cx="255" cy="235" rx="115" ry="88" fill="none" stroke="#36433F" stroke-width="1.2" transform="rotate(-18 255 235)"/>
+            <ellipse cx="255" cy="235" rx="82"  ry="62" fill="none" stroke="#36433F" stroke-width="1"   transform="rotate(-18 255 235)"/>
+            <ellipse cx="255" cy="235" rx="52"  ry="39" fill="none" stroke="#36433F" stroke-width="0.8" transform="rotate(-18 255 235)"/>
+            <ellipse cx="255" cy="235" rx="24"  ry="18" fill="none" stroke="#36433F" stroke-width="0.6" transform="rotate(-18 255 235)"/>
+          </g>
+
+          <!-- Ma On Shan 馬鞍山 (cx:620, cy:300) — Horse Saddle Mountain -->
+          <g class="mountain-group" opacity="0.22" aria-hidden="true">
+            <ellipse cx="620" cy="300" rx="100" ry="75" fill="none" stroke="#36433F" stroke-width="1.2" transform="rotate(8 620 300)"/>
+            <ellipse cx="620" cy="300" rx="72"  ry="54" fill="none" stroke="#36433F" stroke-width="1"   transform="rotate(8 620 300)"/>
+            <ellipse cx="620" cy="300" rx="45"  ry="33" fill="none" stroke="#36433F" stroke-width="0.8" transform="rotate(8 620 300)"/>
+            <ellipse cx="620" cy="300" rx="20"  ry="15" fill="none" stroke="#36433F" stroke-width="0.6" transform="rotate(8 620 300)"/>
+          </g>
+
+          <!-- Shing Mun 城門 (cx:900, cy:405) -->
+          <g class="mountain-group" opacity="0.22" aria-hidden="true">
+            <ellipse cx="900" cy="405" rx="90"  ry="65" fill="none" stroke="#36433F" stroke-width="1.2" transform="rotate(-5 900 405)"/>
+            <ellipse cx="900" cy="405" rx="62"  ry="46" fill="none" stroke="#36433F" stroke-width="1"   transform="rotate(-5 900 405)"/>
+            <ellipse cx="900" cy="405" rx="38"  ry="28" fill="none" stroke="#36433F" stroke-width="0.8" transform="rotate(-5 900 405)"/>
+            <ellipse cx="900" cy="405" rx="17"  ry="13" fill="none" stroke="#36433F" stroke-width="0.6" transform="rotate(-5 900 405)"/>
+          </g>
+
+          <!-- Sai Kung Peninsula 西貢 (cx:1310, cy:565) -->
+          <g class="mountain-group" opacity="0.22" aria-hidden="true">
+            <ellipse cx="1310" cy="565" rx="130" ry="78" fill="none" stroke="#36433F" stroke-width="1.2" transform="rotate(12 1310 565)"/>
+            <ellipse cx="1310" cy="565" rx="95"  ry="57" fill="none" stroke="#36433F" stroke-width="1"   transform="rotate(12 1310 565)"/>
+            <ellipse cx="1310" cy="565" rx="60"  ry="36" fill="none" stroke="#36433F" stroke-width="0.8" transform="rotate(12 1310 565)"/>
+            <ellipse cx="1310" cy="565" rx="28"  ry="17" fill="none" stroke="#36433F" stroke-width="0.6" transform="rotate(12 1310 565)"/>
+          </g>
+
+          <!-- Secondary small hills (scatter, very low opacity) -->
+          <g class="mountain-group" opacity="0.12" aria-hidden="true">
+            <ellipse cx="430"  cy="380" rx="55" ry="40" fill="none" stroke="#36433F" stroke-width="0.8"/>
+            <ellipse cx="430"  cy="380" rx="30" ry="22" fill="none" stroke="#36433F" stroke-width="0.6"/>
+            <ellipse cx="1100" cy="460" rx="65" ry="45" fill="none" stroke="#36433F" stroke-width="0.8" transform="rotate(-10 1100 460)"/>
+            <ellipse cx="1100" cy="460" rx="38" ry="26" fill="none" stroke="#36433F" stroke-width="0.6" transform="rotate(-10 1100 460)"/>
+            <ellipse cx="750"  cy="480" rx="50" ry="35" fill="none" stroke="#36433F" stroke-width="0.7"/>
+            <ellipse cx="1480" cy="430" rx="70" ry="45" fill="none" stroke="#36433F" stroke-width="0.8" transform="rotate(6 1480 430)"/>
+          </g>
+
+          <!-- ── Dragon Vein Path ──
+               This path is animated via stroke-dashoffset in main.js
+               Starts at Tai Mo Shan, winds to Sai Kung (NW → SE) -->
+          <path class="vein-path"
+                d="M 255 232
+                   C 340 188, 465 225, 590 290
+                   C 710 350, 808 378, 920 408
+                   C 1040 440, 1178 508, 1310 568"
+                fill="none"
+                stroke="#B8924A"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                filter="url(#veinGlow)"
+                aria-hidden="true"/>
+
+          <!-- ── Location Pin Markers ──
+               Each is a group: pulsing outer ring + solid inner dot + text label
+               Scaled to 0 initially, animated in as vein passes each point -->
+
+          <!-- Pin 1: Tai Mo Shan 大帽山 -->
+          <g class="pin-marker" data-pin="1" transform="translate(255,232)" aria-label="Tai Mo Shan, Ancestor Mountain">
+            <circle class="pin-ring" r="16" fill="none" stroke="#B8924A" stroke-width="1" opacity="0.4"/>
+            <circle class="pin-dot"  r="5"  fill="#B8924A" filter="url(#pinGlow)"/>
+            <text class="pin-label-en"   x="22"  y="-8">Tai Mo Shan</text>
+            <text class="pin-label-zh"   x="22"  y="8"  lang="zh-Hant">大帽山</text>
+            <text class="pin-label-role" x="22"  y="22">祖山</text>
+          </g>
+
+          <!-- Pin 2: Ma On Shan 馬鞍山 -->
+          <g class="pin-marker" data-pin="2" transform="translate(590,290)" aria-label="Ma On Shan, Dragon Spine">
+            <circle class="pin-ring" r="16" fill="none" stroke="#B8924A" stroke-width="1" opacity="0.4"/>
+            <circle class="pin-dot"  r="5"  fill="#B8924A" filter="url(#pinGlow)"/>
+            <text class="pin-label-en"   x="22"  y="-8">Ma On Shan</text>
+            <text class="pin-label-zh"   x="22"  y="8"  lang="zh-Hant">馬鞍山</text>
+            <text class="pin-label-role" x="22"  y="22">龍脊</text>
+          </g>
+
+          <!-- Pin 3: Shing Mun 城門 -->
+          <g class="pin-marker" data-pin="3" transform="translate(920,408)" aria-label="Shing Mun, Bright Hall">
+            <circle class="pin-ring" r="16" fill="none" stroke="#B8924A" stroke-width="1" opacity="0.4"/>
+            <circle class="pin-dot"  r="5"  fill="#B8924A" filter="url(#pinGlow)"/>
+            <text class="pin-label-en"   x="22"  y="-8">Shing Mun</text>
+            <text class="pin-label-zh"   x="22"  y="8"  lang="zh-Hant">城門</text>
+            <text class="pin-label-role" x="22"  y="22">明堂</text>
+          </g>
+
+          <!-- Pin 4: Sai Kung 西貢 -->
+          <g class="pin-marker" data-pin="4" transform="translate(1310,568)" aria-label="Sai Kung, Dragon Vein Outlet">
+            <circle class="pin-ring" r="16" fill="none" stroke="#B8924A" stroke-width="1" opacity="0.4"/>
+            <circle class="pin-dot"  r="5"  fill="#B8924A" filter="url(#pinGlow)"/>
+            <text class="pin-label-en"   x="-22" y="-8"  text-anchor="end">Sai Kung</text>
+            <text class="pin-label-zh"   x="-22" y="8"   text-anchor="end" lang="zh-Hant">西貢</text>
+            <text class="pin-label-role" x="-22" y="22"  text-anchor="end">出脈</text>
+          </g>
+
+        </svg>
+        </div>
+        <!-- /topo-map SVG -->
+
+        <!-- ── Story Panels (4 × cross-fade during scroll) ──
+             Absolutely positioned, initially opacity:0
+             Fade in/out as the vein reaches each location -->
+
+        <article class="dv-panel panel--01" aria-hidden="true">
+          <p class="eyebrow">01 · <span lang="zh-Hant">祖山</span></p>
+          <h3 class="bilingual-heading">
+            <span class="latin">Ancestor Mountain</span>
+            <span class="chinese" lang="zh-Hant">大帽山</span>
+          </h3>
+          <p>
+            At 957 metres, Hong Kong's highest peak anchors the
+            entire feng shui grid as its <em lang="zh-Hant">祖山</em> — the
+            Ancestor Mountain from which all qi energy awakens and
+            flows southward toward the sea.
+          </p>
+          <footer class="panel-meta">
+            <span>22°24′N · 114°07′E</span>
+            <span>957 m</span>
+          </footer>
+        </article>
+
+        <article class="dv-panel panel--02" aria-hidden="true">
+          <p class="eyebrow">02 · <span lang="zh-Hant">龍脊</span></p>
+          <h3 class="bilingual-heading">
+            <span class="latin">Dragon's Spine</span>
+            <span class="chinese" lang="zh-Hant">馬鞍山</span>
+          </h3>
+          <p>
+            Horse Saddle Mountain forms the primary <em lang="zh-Hant">龍脊</em>
+            — the dragon's backbone — transmitting accumulated qi
+            energy along the central New Territories ridge, channelling
+            it from peak to valley.
+          </p>
+          <footer class="panel-meta">
+            <span>22°23′N · 114°13′E</span>
+            <span>702 m</span>
+          </footer>
+        </article>
+
+        <article class="dv-panel panel--03" aria-hidden="true">
+          <p class="eyebrow">03 · <span lang="zh-Hant">明堂</span></p>
+          <h3 class="bilingual-heading">
+            <span class="latin">Bright Hall</span>
+            <span class="chinese" lang="zh-Hant">城門</span>
+          </h3>
+          <p>
+            The Shing Mun Reservoir forms the <em lang="zh-Hant">明堂</em> —
+            the Bright Hall — where water gathers and qi pools before
+            continuing its journey seaward. Water in feng shui
+            represents the accumulation of wealth and prosperity.
+          </p>
+          <footer class="panel-meta">
+            <span>22°22′N · 114°10′E</span>
+            <span>494 m</span>
+          </footer>
+        </article>
+
+        <article class="dv-panel panel--04" aria-hidden="true">
+          <p class="eyebrow">04 · <span lang="zh-Hant">出脈</span></p>
+          <h3 class="bilingual-heading">
+            <span class="latin">Vein Outlet</span>
+            <span class="chinese" lang="zh-Hant">西貢</span>
+          </h3>
+          <p>
+            The Sai Kung Peninsula marks the final expression of
+            the dragon vein — where five centuries of accumulated qi
+            disperses into Victoria Harbour, blessing the city
+            that grew at the dragon's breath.
+          </p>
+          <footer class="panel-meta">
+            <span>22°22′N · 114°16′E</span>
+            <span>Sea level</span>
+          </footer>
+        </article>
+
+        <!-- Closing caption (appears at end of scrollytelling) -->
+        <p class="closing-caption" aria-hidden="true">
+          <em>Five centuries of feng shui knowledge, drawn in light.</em>
+        </p>
+
+      </div>
+      <!-- /dragon-vein-sticky -->
+
+    </section>
+    <!-- /DRAGON VEIN -->
+
+
+    <!-- =========================================================
+         SECTION 02 — BENTO MYTHS PREVIEW
+         Design System §5.1 + §3.4
+         5 tiles: 1 feature + 4 supporting (asymmetric bento grid)
+    ========================================================= -->
+    <section class="bento-section" id="bento-myths" aria-labelledby="bento-heading">
+
+      <div class="container">
+        <!-- Section header -->
+        <header class="section-header">
+          <p class="eyebrow">Myths &amp; Meanings · <span lang="zh-Hant">神話與意義</span></p>
+          <h2 id="bento-heading" class="bilingual-heading section-headline"
+              data-en="The Hidden Atlas"
+              data-zh="隱秘圖集">
+            <span class="latin display-sharp">The Hidden Atlas</span>
+            <span class="chinese" lang="zh-Hant">隱秘圖集</span>
+          </h2>
+          <p class="section-lead">
+            Five stories from the mountain paths, temple courtyards,
+            and tidal margins of Hong Kong's overlooked interior.
+          </p>
+        </header>
+      </div>
+
+      <!-- Bento Grid (12-column, Design System §3.4) -->
+      <div class="container container--wide">
+        <div class="bento" role="list">
+
+          <!-- ── TILE 1: Feature (span 7, row 2) ── -->
+          <!-- The Nine Dragons — the mythological origin of Kowloon -->
+          <article class="bento-tile bento-tile--feature card" role="listitem"
+                   data-reveal
+                   aria-label="The Nine Dragons — origin myth of Kowloon">
+            <!-- Stylised gradient background -->
+            <div class="tile-image tile-image--nine-dragons" aria-hidden="true"></div>
+            <div class="card-content">
+              <p class="eyebrow tile-eyebrow">
+                Urban Legend · <span lang="zh-Hant">都市傳說</span>
+              </p>
+              <h3 class="bilingual-heading tile-title"
+                  data-en="The Nine Dragons"
+                  data-zh="九龍">
+                <span class="latin">The Nine Dragons</span>
+                <span class="chinese" lang="zh-Hant">九龍</span>
+              </h3>
+              <p class="tile-excerpt"
+                 data-en="A boy emperor saw eight mountains and named them his eight dragons — then a minister reminded him: an emperor is also a dragon. Nine dragons. Kowloon."
+                 data-zh="幼帝望見八座山峰，封之為八條龍；大臣提醒他：天子亦是龍也。八龍加帝，便成九龍——此即「九龍」之名。">
+                A boy emperor saw eight mountains and named them
+                his eight dragons — then a minister reminded him:
+                an emperor is also a dragon. Nine dragons. Kowloon.
+              </p>
+              <a href="myths.html#nine-dragons" class="btn btn--text tile-cta">
+                Read the legend →
+              </a>
+            </div>
+          </article>
+
+          <!-- ── TILE 2: Tall (span 5, row 2) ── -->
+          <!-- Lion Rock — the guardian spirit -->
+          <article class="bento-tile bento-tile--tall card" role="listitem"
+                   data-reveal
+                   aria-label="Lion Rock — guardian spirit of Hong Kong">
+            <div class="tile-image tile-image--lion-rock" aria-hidden="true"></div>
+            <div class="card-content">
+              <p class="eyebrow tile-eyebrow">
+                Feng Shui · <span lang="zh-Hant">風水</span>
+              </p>
+              <h3 class="bilingual-heading tile-title"
+                  data-en="Lion Rock Spirit"
+                  data-zh="獅子山精神">
+                <span class="latin">Lion Rock Spirit</span>
+                <span class="chinese" lang="zh-Hant">獅子山精神</span>
+              </h3>
+              <p class="tile-excerpt"
+                 data-en="The crouching lion protects the northern approach. Its qi flows downward, enclosing Kowloon in a protective embrace."
+                 data-zh="蹲伏之獅鎮守北方門戶，其氣自上而下，將九龍環抱於庇佑之中。">
+                The crouching lion protects the northern approach.
+                Its qi flows downward, enclosing Kowloon in
+                a protective embrace.
+              </p>
+              <a href="myths.html#lion-rock" class="btn btn--text tile-cta">
+                Explore →
+              </a>
+            </div>
+          </article>
+
+          <!-- ── TILE 3: Wide (span 8) ── -->
+          <!-- Wong Tai Sin Temple -->
+          <article class="bento-tile bento-tile--wide card" role="listitem"
+                   data-reveal
+                   aria-label="Wong Tai Sin Temple — where all prayers are answered">
+            <div class="tile-image tile-image--wong-tai-sin" aria-hidden="true"></div>
+            <div class="card-content">
+              <p class="eyebrow tile-eyebrow">
+                Temple · <span lang="zh-Hant">廟宇</span>
+              </p>
+              <h3 class="bilingual-heading tile-title"
+                  data-en="Where Prayers Are Granted"
+                  data-zh="有求必應之地">
+                <span class="latin">Where Prayers Are Granted</span>
+                <span class="chinese" lang="zh-Hant">黃大仙廟</span>
+              </h3>
+              <p class="tile-excerpt"
+                 data-en="Sited at a feng shui nexus where three dragon veins converge, Wong Tai Sin Temple has answered prayers since 1921."
+                 data-zh="黃大仙廟坐落於三條龍脈交會的風水寶地，自一九二一年起為信眾解疑釋惑、有求必應。">
+                Sited at a feng shui nexus where three dragon veins converge,
+                Wong Tai Sin Temple has answered prayers since 1921.
+              </p>
+              <a href="myths.html#wong-tai-sin" class="btn btn--text tile-cta">
+                Visit the shrine →
+              </a>
+            </div>
+          </article>
+
+          <!-- ── TILE 4: Square (span 4) ── -->
+          <!-- Hungry Ghost Festival -->
+          <article class="bento-tile bento-tile--square card" role="listitem"
+                   data-reveal
+                   aria-label="Hungry Ghost Festival — the seventh month ritual">
+            <div class="tile-image tile-image--hungry-ghost" aria-hidden="true"></div>
+            <div class="card-content">
+              <p class="eyebrow tile-eyebrow">
+                Ritual · <span lang="zh-Hant">祭典</span>
+              </p>
+              <h3 class="bilingual-heading tile-title"
+                  data-en="The Hungry Ghost"
+                  data-zh="餓鬼節">
+                <span class="latin">The Hungry Ghost</span>
+                <span class="chinese" lang="zh-Hant">餓鬼節</span>
+              </h3>
+              <a href="myths.html#hungry-ghost" class="btn btn--text tile-cta">
+                Read more →
+              </a>
+            </div>
+          </article>
+
+          <!-- ── TILE 5: Narrow (span 3 of remaining columns after square=4+narrow=3+fill=5) ── -->
+          <!-- Five Elements -->
+          <article class="bento-tile bento-tile--narrow card" role="listitem"
+                   data-reveal
+                   aria-label="Five Elements — Wu Xing cosmology">
+            <div class="tile-image tile-image--five-elements" aria-hidden="true"></div>
+            <div class="card-content card-content--compact">
+              <p class="eyebrow tile-eyebrow">
+                Cosmology · <span lang="zh-Hant">宇宙觀</span>
+              </p>
+              <h3 class="bilingual-heading tile-title tile-title--sm"
+                  data-en="Five Elements"
+                  data-zh="五行">
+                <span class="latin">Five Elements</span>
+                <span class="chinese" lang="zh-Hant">五行</span>
+              </h3>
+              <a href="myths.html#five-elements" class="btn btn--text tile-cta">
+                Learn →
+              </a>
+            </div>
+          </article>
+
+        </div>
+        <!-- /bento -->
+      </div>
+
+    </section>
+    <!-- /BENTO MYTHS -->
+
+
+    <!-- =========================================================
+         SECTION 03 — REGION QUICK-NAV (horizontal scroll)
+         Design System §5.1 · 7 region cards pinned for 1 viewport
+         (skeleton — horizontal scroll logic in main.js)
+    ========================================================= -->
+    <section class="regions-section" id="regions" aria-labelledby="regions-heading">
+
+      <div class="container">
+        <header class="section-header">
+          <p class="eyebrow">Explore by Route · <span lang="zh-Hant">按路線探索</span></p>
+          <h2 id="regions-heading" class="bilingual-heading section-headline"
+              data-en="Seven Routes"
+              data-zh="七條路線">
+            <span class="latin display-sharp">Seven Routes</span>
+            <span class="chinese" lang="zh-Hant">七條路線</span>
+          </h2>
+          <!-- Touch-only hint, shown by style.css §18 on coarse pointers ≤768px -->
+          <p class="regions-section__swipe-hint" aria-hidden="true">
+            Swipe <span aria-hidden="true">→</span>
+          </p>
+        </header>
+      </div>
+
+      <!-- Horizontally-scrolling track (GSAP pins this) -->
+      <div class="regions-track-wrapper">
+        <div class="regions-track" role="list" aria-label="Hong Kong regions">
+
+          <a href="explore.html#maclehose" class="region-card" role="listitem"
+             aria-label="MacLehose Trail, dragon vein route — view detail">
+            <div class="region-card__img region-card__img--maclehose" aria-hidden="true"></div>
+            <div class="region-card__content">
+              <p class="eyebrow">01 · Ridge route</p>
+              <h3 class="region-card__name" data-en="MacLehose Trail" data-zh="麥理浩徑">MacLehose Trail</h3>
+              <p class="region-card__name-zh" lang="zh-Hant">麥理浩徑</p>
+              <p class="region-card__teaser"
+                 data-en="Reservoir water, volcanic coast, and the atlas' main dragon vein."
+                 data-zh="水塘碧波、火山海岸，這是本圖集中的主龍脈。">Reservoir water, volcanic coast, and the atlas' main dragon vein.</p>
+            </div>
+          </a>
+
+          <a href="explore.html#lion-rock" class="region-card" role="listitem"
+             aria-label="Lion Rock, guardian ridge route — view detail">
+            <div class="region-card__img region-card__img--lion-rock" aria-hidden="true"></div>
+            <div class="region-card__content">
+              <p class="eyebrow">02 · Urban ridge</p>
+              <h3 class="region-card__name" data-en="Lion Rock" data-zh="獅子山">Lion Rock</h3>
+              <p class="region-card__name-zh" lang="zh-Hant">獅子山</p>
+              <p class="region-card__teaser"
+                 data-en="A city-facing guardian form above Kowloon reservoirs and skyline."
+                 data-zh="一座面向都市的守護山形，俯臨九龍水塘與萬家燈火。">A city-facing guardian form above Kowloon reservoirs and skyline.</p>
+            </div>
+          </a>
+
+          <a href="explore.html#dragons-back" class="region-card" role="listitem"
+             aria-label="Dragon's Back, coastal spine route — view detail">
+            <div class="region-card__img region-card__img--dragons-back" aria-hidden="true"></div>
+            <div class="region-card__content">
+              <p class="eyebrow">03 · Coastal spine</p>
+              <h3 class="region-card__name" data-en="Dragon's Back" data-zh="龍脊">Dragon's Back</h3>
+              <p class="region-card__name-zh" lang="zh-Hant">龍脊</p>
+              <p class="region-card__teaser"
+                 data-en="Rolling ridgeline, sea wind, and a clear dragon-body metaphor."
+                 data-zh="起伏的山脊、海風相伴，一條清晰可見的龍身意象。">Rolling ridgeline, sea wind, and a clear dragon-body metaphor.</p>
+            </div>
+          </a>
+
+          <a href="explore.html#lantau" class="region-card" role="listitem"
+             aria-label="Lantau Peak, ancestor mountain route — view detail">
+            <div class="region-card__img region-card__img--lantau" aria-hidden="true"></div>
+            <div class="region-card__content">
+              <p class="eyebrow">04 · Ancestor mountain</p>
+              <h3 class="region-card__name" data-en="Lantau Peak" data-zh="鳳凰山">Lantau Peak</h3>
+              <p class="region-card__name-zh" lang="zh-Hant">大嶼山鳳凰山</p>
+              <p class="region-card__teaser"
+                 data-en="A high exposed ascent tied to pilgrimage movement and island horizon."
+                 data-zh="一段高聳裸露的攀升之路，繫於朝聖步履與海島天際之間。">A high exposed ascent tied to pilgrimage movement and island horizon.</p>
+            </div>
+          </a>
+
+          <a href="explore.html#cheung-chau" class="region-card" role="listitem"
+             aria-label="Cheung Chau, island ritual route — view detail">
+            <div class="region-card__img region-card__img--cheung-chau" aria-hidden="true"></div>
+            <div class="region-card__content">
+              <p class="eyebrow">05 · Island ritual</p>
+              <h3 class="region-card__name" data-en="Cheung Chau" data-zh="長洲">Cheung Chau</h3>
+              <p class="region-card__name-zh" lang="zh-Hant">長洲</p>
+              <p class="region-card__teaser"
+                 data-en="Ferry arrival, harbour temples, festival memory, and village protection."
+                 data-zh="渡輪靠岸、海港古廟、節慶記憶，以及守護鄉里的庇佑。">Ferry arrival, harbour temples, festival memory, and village protection.</p>
+            </div>
+          </a>
+
+          <a href="explore.html#pat-sin-leng" class="region-card" role="listitem"
+             aria-label="Pat Sin Leng, eight-immortals ridge route — view detail">
+            <div class="region-card__img region-card__img--pat-sin-leng" aria-hidden="true"></div>
+            <div class="region-card__content">
+              <p class="eyebrow">06 · Named ridge</p>
+              <h3 class="region-card__name" data-en="Pat Sin Leng" data-zh="八仙嶺">Pat Sin Leng</h3>
+              <p class="region-card__name-zh" lang="zh-Hant">八仙嶺</p>
+              <p class="region-card__teaser"
+                 data-en="Eight named peaks above Plover Cove, each carrying the name of a Daoist immortal."
+                 data-zh="船灣淡水湖之上八座命名山峰，各以一位道家仙人之名命名。">Eight named peaks above Plover Cove, each carrying the name of a Daoist immortal.</p>
+            </div>
+          </a>
+
+          <a href="explore.html#sunset-peak" class="region-card" role="listitem"
+             aria-label="Sunset Peak, silvergrass plateau route — view detail">
+            <div class="region-card__img region-card__img--sunset-peak" aria-hidden="true"></div>
+            <div class="region-card__content">
+              <p class="eyebrow">07 · Wind-path plateau</p>
+              <h3 class="region-card__name" data-en="Sunset Peak" data-zh="大東山">Sunset Peak</h3>
+              <p class="region-card__name-zh" lang="zh-Hant">大東山</p>
+              <p class="region-card__teaser"
+                 data-en="Silvergrass slopes, traditional stone huts, and Lantau's contemplative wind-path companion."
+                 data-zh="芒草披坡、古樸石屋猶存，是大嶼山靜謐風路上的伴行之峰。">Silvergrass slopes, traditional stone huts, and Lantau's contemplative wind-path companion.</p>
+            </div>
+          </a>
+
+        </div>
+        <!-- /regions-track -->
+      </div>
+
+    </section>
+    <!-- /REGIONS -->
+
+
+    <!-- =========================================================
+         SECTION 04 — FEATURED STORY PULL-QUOTE
+         Design System §5.1 · oversized Fraunces italic blockquote
+         Brass rules draw from center · word-by-word reveal
+    ========================================================= -->
+    <section class="quote-section" id="featured-quote" aria-label="Featured quote">
+      <div class="container container--narrow">
+
+        <div class="brass-rule brass-rule--top" aria-hidden="true"></div>
+
+        <blockquote class="featured-quote" data-splitting="words">
+          <p class="quote-text display-italic"
+             data-en="&quot;In Hong Kong, the mountain is not background. The mountain is the city's memory — carved in feng shui, breathed in legend, walked by ten thousand pilgrims who never called themselves pilgrims at all.&quot;"
+             data-zh="「在香港，山從不是背景。山，是這座城市的記憶——刻於風水之中，呼吸於傳說之內，被千萬個從未自稱朝聖者的行者，緩緩走過。」">
+            "In Hong Kong, the mountain is not background.
+            The mountain is the city's memory — carved in feng shui,
+            breathed in legend, walked by ten thousand pilgrims
+            who never called themselves pilgrims at all."
+          </p>
+          <footer class="quote-attribution">
+            <cite>— <span lang="zh-Hant">無名山者</span> · Anonymous Mountain-Walker, 1987</cite>
+          </footer>
+        </blockquote>
+
+        <div class="brass-rule brass-rule--bottom" aria-hidden="true"></div>
+
+      </div>
+    </section>
+    <!-- /QUOTE -->
+
+  </main>
+  <!-- /MAIN CONTENT -->
+
+
+  <!-- ============================================================
+       FOOTER (Design System §6.4)
+       3 columns · wordmark · site map · credits
+       Background: --ink-950 (deepest dark — the mountain valley)
+  ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container container--wide footer__inner">
+
+      <!-- Column 1: Wordmark + tagline + social -->
+      <div class="footer__col footer__col--brand">
+        <a href="index.html" class="footer__logo" aria-label="Beyond the Map — Home">
+          <span class="footer__logo-latin">Beyond the Map</span>
+          <span class="footer__logo-chinese" lang="zh-Hant">風水之外</span>
+        </a>
+        <p class="footer__tagline"
+           data-en="A contemplative atlas of Hong Kong's hidden feng shui landscapes."
+           data-zh="一冊安靜的香港風水山水地圖">
+          A contemplative atlas of Hong Kong's hidden feng shui landscapes.
+        </p>
+        <nav aria-label="Social links">
+          <ul class="footer__social" role="list">
+            <li><a href="gallery.html" class="footer__social-link" aria-label="Gallery">GA</a></li>
+            <li><a href="about.html" class="footer__social-link" aria-label="About">AB</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Column 2: Site map -->
+      <div class="footer__col footer__col--nav">
+        <h3 class="footer__col-title" data-en="Explore" data-zh="探索">Explore</h3>
+        <nav aria-label="Footer site map">
+          <ul role="list">
+            <li><a href="index.html"  class="footer__link" aria-current="page" data-en="Home" data-zh="首頁">Home</a></li>
+            <li><a href="explore.html" class="footer__link" data-en="Explore" data-zh="探索">Explore</a></li>
+            <li><a href="myths.html"  class="footer__link" data-en="Myths &amp; Meanings" data-zh="神話與寓意">Myths &amp; Meanings</a></li>
+            <li><a href="map.html"    class="footer__link" data-en="Map" data-zh="地圖">Map</a></li>
+            <li><a href="compare.html" class="footer__link" data-en="Compare" data-zh="比較">Compare</a></li>
+            <li><a href="gallery.html" class="footer__link" data-en="Gallery" data-zh="藝廊">Gallery</a></li>
+            <li><a href="about.html"  class="footer__link" data-en="About" data-zh="關於">About</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Column 3: Attribution + credits -->
+      <div class="footer__col footer__col--credits">
+        <h3 class="footer__col-title" data-en="Credits" data-zh="製作">Credits</h3>
+        <p class="footer__credit-text">
+          <span data-en="Produced for UOWCHK" data-zh="香港伍倫貢學院製作">Produced for UOWCHK</span><br>
+          <span data-en="CGE13220 / AST10962" data-zh="CGE13220 / AST10962">CGE13220 / AST10962</span><br>
+          <span data-en="Cultural Tourism &amp; Digital Media" data-zh="文化旅遊與數位媒體">Cultural Tourism &amp; Digital Media</span>
+        </p>
+        <p class="footer__credit-text">
+          <span data-en="Design direction: Beyond the Map" data-zh="設計方向：Beyond the Map">Design direction: Beyond the Map</span><br>
+          <span data-en="Design System v1.0" data-zh="設計系統 v1.0">Design System v1.0</span>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Bottom copyright strip -->
+    <div class="footer__strip">
+      <div class="container container--wide">
+        <p class="footer__copy" data-en="© 2026 Beyond the Map · 風水之外 · UOWCHK CGE13220 / AST10962 · All rights reserved" data-zh="© 2026 Beyond the Map · 風水之外 · UOWCHK CGE13220 / AST10962 · 版權所有">© 2026 Beyond the Map&nbsp;·&nbsp;<span lang="zh-Hant">風水之外</span>&nbsp;·&nbsp;UOWCHK CGE13220 / AST10962&nbsp;·&nbsp;All rights reserved</p>
+      </div>
+    </div>
+
+  </footer>
+  <!-- /FOOTER -->
+
+
+  <!-- ============================================================
+       SCRIPTS — loaded in dependency order at end of <body>
+  ============================================================ -->
+
+  <!-- Three.js r134 (global THREE) — mist particle system -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <!-- GSAP 3.12.5 core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- GSAP ScrollTrigger plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis 1.1.13 — smooth scroll (global Lenis) -->
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+  <!-- Splitting.js — text char/word splitting for GSAP animations -->
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+
+  <!-- Site JS — orchestrates all animations -->
+  <script src="main.js?v=20260502-hero-safe"></script>
+  <script src="glossary.js"></script>
+
+</body>
+</html>

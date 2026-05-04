@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A glossary of Hong Kong feng shui, temples, festivals, and Daoist cosmology — with a horizontal timeline of six centuries of practice.">
+
+  <!-- SEO · canonical · theme · social preview -->
+  <link rel="canonical" href="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/myths.html">
+  <meta name="theme-color" content="#0B0F0E">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/images/icon-192.png">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Beyond the Map">
+  <meta property="og:title"       content="Myths &amp; Meanings · Beyond the Map">
+  <meta property="og:description" content="A glossary of Hong Kong feng shui, temples, festivals, and Daoist cosmology — with a horizontal timeline of six centuries of practice.">
+  <meta property="og:url"         content="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/myths.html">
+  <meta property="og:image"       content="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/assets/images/og-cover.jpg">
+
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Myths &amp; Meanings · Beyond the Map">
+  <meta name="twitter:description" content="The cultural ideas behind the map — from the Nine Dragons to the Eight Immortals.">
+  <meta name="twitter:image"       content="https://PLACEHOLDER_DEPLOY_DOMAIN/beyond-the-map/assets/images/og-cover.jpg">
+
+  <title>Myths & Meanings · Beyond the Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Manrope:wght@300..800&family=Noto+Sans+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;600;900&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="nav" id="main-nav" role="banner">
+    <div class="container container--wide nav__inner">
+      <a href="index.html" class="nav__logo"><span class="nav__logo-latin">Beyond the Map</span><span class="nav__logo-chinese" lang="zh-Hant">風水</span></a>
+      <nav aria-label="Main navigation"><ul class="nav__links" role="list"><li><a href="index.html" class="nav__link" data-en="Home" data-zh="首頁">Home</a></li><li><a href="explore.html" class="nav__link" data-en="Explore" data-zh="探索">Explore</a></li><li><a href="myths.html" class="nav__link is-active" aria-current="page" data-en="Myths &amp; Meanings" data-zh="神話與寓意">Myths &amp; Meanings</a></li><li><a href="map.html" class="nav__link" data-en="Map" data-zh="地圖">Map</a></li><li><a href="compare.html" class="nav__link" data-en="Compare" data-zh="比較">Compare</a></li><li><a href="gallery.html" class="nav__link" data-en="Gallery" data-zh="藝廊">Gallery</a></li><li><a href="about.html" class="nav__link" data-en="About" data-zh="關於">About</a></li></ul></nav>
+      <div class="nav__actions"><button class="nav__lang-toggle" aria-label="Switch to Traditional Chinese"><span class="lang-opt lang-opt--active">EN</span><span class="lang-sep" aria-hidden="true">/</span><span class="lang-opt" lang="zh-Hant">繁</span></button><button class="nav__hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+    </div>
+  </header>
+
+  <main class="subpage-main">
+    <section class="subpage-hero">
+      <div class="container">
+        <p class="eyebrow" data-en="Myth glossary" data-zh="神話詞典">Myth glossary</p>
+        <h1 class="section-headline display-sharp" data-en="The cultural ideas behind the map." data-zh="地圖背後的文化觀念">The cultural ideas behind the map.</h1>
+        <p class="section-lead" data-en="These short explainers help tourists understand why a hiking route can also be read as a mythic landscape." data-zh="這些短文幫助旅客理解：為何健行路線也能讀作神話地景。">These short explainers help tourists understand why a hiking route can also be read as a mythic landscape.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CATEGORY FILTER BAR
+         JS in main.js §17 wires click + keyboard handling.
+    ============================================================ -->
+    <section class="container myth-filter-section" aria-labelledby="myth-filter-label">
+      <div class="myth-filter">
+        <p class="eyebrow myth-filter__label" id="myth-filter-label" data-en="Filter by category" data-zh="按主題篩選">Filter by category</p>
+        <div class="myth-filter__bar" role="group" aria-label="Filter myths by category">
+          <button type="button" class="filter-btn filter-btn--active" data-filter="all"        aria-pressed="true" data-en="All" data-zh="全部">All</button>
+          <button type="button" class="filter-btn"                    data-filter="feng-shui"  aria-pressed="false" data-en="Feng Shui" data-zh="風水">Feng Shui</button>
+          <button type="button" class="filter-btn"                    data-filter="temples"    aria-pressed="false" data-en="Temples" data-zh="廟宇">Temples</button>
+          <button type="button" class="filter-btn"                    data-filter="festivals"  aria-pressed="false" data-en="Festivals" data-zh="節慶">Festivals</button>
+          <button type="button" class="filter-btn"                    data-filter="cosmology"  aria-pressed="false" data-en="Cosmology" data-zh="宇宙觀">Cosmology</button>
+          <button type="button" class="filter-btn"                    data-filter="daoist"     aria-pressed="false" data-en="Daoist" data-zh="道家">Daoist</button>
+        </div>
+        <p class="myth-filter__count" aria-live="polite" data-filter-count></p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MYTH CARDS — 8 entries, each with category, bilingual title,
+         long-form description, key-facts dl, and route link.
+    ============================================================ -->
+    <section class="container subpage-grid myth-grid" data-filter-grid>
+
+      <!-- 1 · Nine Dragons — Feng Shui -->
+      <article class="subpage-card myth-card" id="nine-dragons" data-category="feng-shui">
+        <p class="eyebrow" data-en="Feng Shui · 風水" data-zh="風水">Feng Shui · 風水</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">The Nine Dragons</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">九龍</span>
+        </h2>
+        <p>Kowloon (<span lang="zh-Hant">九龍</span>, "Nine Dragons") takes its name from a thirteenth-century legend tied to the boy-emperor Bing of the Southern Song, who fled south as the Mongol armies advanced. Counting the eight surrounding peaks — Tate's Cairn, Kowloon Peak, Lion Rock and others — a courtier reportedly told the young ruler that the landscape held only eight dragons, and that the emperor himself completed the ninth, since a dragon also resides in the Son of Heaven. The story converted ordinary mountains into a sacred ridge system that still defines how locals read the Kowloon skyline today.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>13th c. — Southern Song</dd></div>
+          <div><dt>District</dt><dd>Kowloon (<span lang="zh-Hant">九龍</span>)</dd></div>
+          <div><dt>Related route</dt><dd>Lion Rock Country Trail</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/lion-rock.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+      <!-- 2 · Lion Rock Spirit — Feng Shui -->
+      <article class="subpage-card myth-card" id="lion-rock" data-category="feng-shui">
+        <p class="eyebrow" data-en="Feng Shui · 風水" data-zh="風水">Feng Shui · 風水</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">Lion Rock Spirit</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">獅山精神</span>
+        </h2>
+        <p>Rising 495 m above Kowloon, Lion Rock (<span lang="zh-Hant">獅子山</span>) is the city's most-recognised mountain — a couchant lion in feng shui terms, guarding the urban basin from the north. Its silhouette became a civic symbol during the 1970s, when the RTHK series <em>Below the Lion Rock</em> dramatised the resilience of Hong Kong's working-class neighbourhoods. To geomancers the rock is the "azure dragon" arm of Kowloon, balancing the white-tiger ridge to the west; to hikers it offers a 4 km ridgeline scramble with one of Asia's most photographed urban panoramas at the summit.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>Symbol since the 1970s</dd></div>
+          <div><dt>District</dt><dd>Kowloon / NT border</dd></div>
+          <div><dt>Related route</dt><dd>Lion Rock summit trail</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/lion-rock.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+      <!-- 3 · Wong Tai Sin — Temples -->
+      <article class="subpage-card myth-card" id="wong-tai-sin" data-category="temples">
+        <p class="eyebrow" data-en="Temples · 廟宇" data-zh="廟宇">Temples · 廟宇</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">Wong Tai Sin Temple</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">黃大仙祠</span>
+        </h2>
+        <p>Sik Sik Yuen Wong Tai Sin Temple (<span lang="zh-Hant">嗇色園黃大仙祠</span>), built in 1921 in Chuk Yuen Village, is Hong Kong's most-visited Daoist sanctuary. Its main hall enshrines a portrait of the Jinhua shepherd-immortal Wong Tai Sin, who promised to "grant whatever is requested" (<span lang="zh-Hant">有求必應</span>). The temple is famous for kau cim (<span lang="zh-Hant">求籤</span>) — devotees shake a bamboo cylinder until one numbered stick falls out, then have its accompanying poem read at one of the licensed booths along the entrance arcade. The grounds also house a celebrated nine-dragon wall and a "three religions" hall.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>Temple founded 1921</dd></div>
+          <div><dt>District</dt><dd>Wong Tai Sin, Kowloon</dd></div>
+          <div><dt>Related route</dt><dd>Lion Rock Country Trail</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/lion-rock.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+      <!-- 4 · Hungry Ghost Festival — Festivals -->
+      <article class="subpage-card myth-card" id="hungry-ghost" data-category="festivals">
+        <p class="eyebrow" data-en="Festivals · 節慶" data-zh="節慶">Festivals · 節慶</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">Hungry Ghost Festival</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">盂蘭勝會</span>
+        </h2>
+        <p>During the seventh lunar month, the Yulan Festival (<span lang="zh-Hant">盂蘭勝會</span>) marks the period when the gates of the underworld are believed to open and ancestral and wandering spirits walk among the living. In Hong Kong's working-class districts, communities — historically led by the Chiu Chow (<span lang="zh-Hant">潮州</span>) diaspora — erect bamboo theatres for nightly Cantonese opera, set out food on roadside altars, and burn paper money and effigies of clothing, mansions, and even smartphones. Inscribed on UNESCO's Intangible Cultural Heritage list since 2011, the festival turns ordinary streets into one of the world's largest open-air rituals of remembrance.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>7th lunar month — UNESCO ICH 2011</dd></div>
+          <div><dt>District</dt><dd>Citywide · Cheung Chau, Sham Shui Po</dd></div>
+          <div><dt>Related route</dt><dd>Cheung Chau heritage walk</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/cheung-chau.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+      <!-- 5 · Five Elements — Cosmology -->
+      <article class="subpage-card myth-card" id="five-elements" data-category="cosmology">
+        <p class="eyebrow" data-en="Cosmology · 宇宙觀" data-zh="宇宙觀">Cosmology · 宇宙觀</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">The Five Elements</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">五行</span>
+        </h2>
+        <p>Wuxing (<span lang="zh-Hant">五行</span>) — wood, fire, earth, metal, water — is the cosmological grammar underneath classical feng shui, traditional Chinese medicine, and even modern building design in Hong Kong. The five phases generate and constrain each other in a fixed cycle: water nourishes wood, wood feeds fire, fire creates earth (ash), earth bears metal, metal condenses water. Hong Kong's skyscrapers play this game openly — the HSBC Building's "cannons" aimed at the Bank of China's metal blades, the Lippo Centre's wood-form columns, the curved water-form roofs of the Convention Centre — making the skyline a quiet conversation between the five elements.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>Pre-Han China · Warring States era</dd></div>
+          <div><dt>District</dt><dd>Citywide skyline</dd></div>
+          <div><dt>Related route</dt><dd>Dragon's Back ridgeline</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/dragons-back.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+      <!-- 6 · Eight Immortals — Daoist -->
+      <article class="subpage-card myth-card" id="eight-immortals" data-category="daoist">
+        <p class="eyebrow" data-en="Daoist · 道教" data-zh="道家">Daoist · 道教</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">The Eight Immortals</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">八仙</span>
+        </h2>
+        <p>The Eight Immortals (<span lang="zh-Hant">八仙</span>) are the most beloved figures in popular Daoism: Lü Dongbin's sword, He Xiangu's lotus, Zhongli Quan's fan, Iron-Crutch Li's gourd, Han Xiangzi's flute, Cao Guojiu's tablet, Lan Caihe's basket, Zhang Guolao's bamboo drum. Together they represent youth, age, poverty, wealth, the masculine and the feminine — a complete society of the awakened. Hong Kong's Pat Sin Leng (<span lang="zh-Hant">八仙嶺</span>) ridge in the northern New Territories names each of its eight peaks after one of the immortals, with Hsien Ku Fung (<span lang="zh-Hant">仙姑峰</span>), peak of the female immortal He Xiangu, as its 591 m highest point.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>Ming–Qing folk Daoism</dd></div>
+          <div><dt>District</dt><dd>Northeast New Territories</dd></div>
+          <div><dt>Related route</dt><dd>Pat Sin Leng ridge</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/pat-sin-leng.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+      <!-- 7 · Tin Hau — Festivals (replaces "Source trail" placeholder) -->
+      <article class="subpage-card myth-card" id="tin-hau" data-category="festivals">
+        <p class="eyebrow" data-en="Festivals · 節慶" data-zh="節慶">Festivals · 節慶</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">Tin Hau — Goddess of the Sea</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">天后</span>
+        </h2>
+        <p>Tin Hau (<span lang="zh-Hant">天后</span>), "Empress of Heaven", is the patron goddess of seafarers, originally venerated in coastal Fujian as the village shamaness Lin Moniang (<span lang="zh-Hant">林默娘</span>). Hong Kong, a city built on its harbour, has more than seventy Tin Hau temples — the oldest, at Joss House Bay near Sai Kung, was founded in the thirteenth century. On the twenty-third day of the third lunar month, communities celebrate her birthday with fa pau (<span lang="zh-Hant">花炮</span>) processions: parades of richly decorated bamboo-and-paper towers carried through fishing villages such as Cheung Chau, Yuen Long, and Sai Kung, accompanied by lion dances and Chiu Chow opera.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>10th c. — Fujian coast</dd></div>
+          <div><dt>District</dt><dd>Cheung Chau · Joss House Bay</dd></div>
+          <div><dt>Related route</dt><dd>Cheung Chau temple loop</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/cheung-chau.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+      <!-- 8 · Earth Gods — Feng Shui (new) -->
+      <article class="subpage-card myth-card" id="earth-gods" data-category="feng-shui">
+        <p class="eyebrow" data-en="Feng Shui · 風水" data-zh="風水">Feng Shui · 風水</p>
+        <h2 class="myth-card__title">
+          <span class="myth-card__title-en">Earth Gods at the Village Edge</span>
+          <span class="myth-card__title-zh" lang="zh-Hant">土地公</span>
+        </h2>
+        <p>Tudi Gong (<span lang="zh-Hant">土地公</span>) — sometimes called "Earth Uncle" — is the local-spirit guardian of a specific patch of land, usually a single village, lane, or hill path. His shrines are deliberately small: a stone niche or a humble red-painted altar set at a village's feng shui boundary, often where the foot of a mountain meets cultivated land. Hikers along the MacLehose Trail still pass these shrines tucked beneath banyan trees at the entrances to abandoned Hakka villages. The custom of pausing to leave a single incense stick or a piece of fruit predates organised religion in Hong Kong by centuries.</p>
+        <dl class="myth-card__facts">
+          <div><dt>Origin</dt><dd>Han dynasty agricultural cult</dd></div>
+          <div><dt>District</dt><dd>Sai Kung · Tai Po villages</dd></div>
+          <div><dt>Related route</dt><dd>MacLehose Trail (Stages 1–3)</dd></div>
+        </dl>
+        <p><a class="btn btn--text myth-card__cta" data-en="View related route" data-zh="查看相關路線" href="routes/maclehose.html">View related route <span aria-hidden="true">→</span></a></p>
+      </article>
+
+    </section>
+
+    <!-- ============================================================
+         HONG KONG FENG SHUI TIMELINE
+         Tablist pattern with horizontal track + expandable panel.
+         JS in main.js §17 handles click + arrow-key navigation.
+    ============================================================ -->
+    <section class="myth-timeline-section" aria-labelledby="myth-timeline-heading">
+      <div class="container">
+        <header class="section-header myth-timeline__header">
+          <p class="eyebrow" data-en="Timeline · 時序" data-zh="時序">Timeline · 時序</p>
+          <h2 id="myth-timeline-heading" class="section-headline display-sharp">Hong Kong Feng Shui Timeline</h2>
+          <p class="section-lead">Six and a half centuries from southern migration to UNESCO listing — the long arc that turned a coastline into a sacred map.</p>
+        </header>
+
+        <div class="myth-timeline" data-myth-timeline>
+          <!-- Horizontal node track -->
+          <div class="myth-timeline__track" role="tablist" aria-label="Feng Shui timeline nodes" aria-orientation="horizontal">
+            <div class="myth-timeline__axis" aria-hidden="true"></div>
+
+            <button class="myth-timeline__node is-active" type="button"
+                    role="tab" id="tl-node-0" aria-controls="tl-panel-0"
+                    aria-selected="true" tabindex="0">
+              <span class="myth-timeline__dot" aria-hidden="true"></span>
+              <span class="myth-timeline__year">1368</span>
+            </button>
+
+            <button class="myth-timeline__node" type="button"
+                    role="tab" id="tl-node-1" aria-controls="tl-panel-1"
+                    aria-selected="false" tabindex="-1">
+              <span class="myth-timeline__dot" aria-hidden="true"></span>
+              <span class="myth-timeline__year">1847</span>
+            </button>
+
+            <button class="myth-timeline__node" type="button"
+                    role="tab" id="tl-node-2" aria-controls="tl-panel-2"
+                    aria-selected="false" tabindex="-1">
+              <span class="myth-timeline__dot" aria-hidden="true"></span>
+              <span class="myth-timeline__year">1921</span>
+            </button>
+
+            <button class="myth-timeline__node" type="button"
+                    role="tab" id="tl-node-3" aria-controls="tl-panel-3"
+                    aria-selected="false" tabindex="-1">
+              <span class="myth-timeline__dot" aria-hidden="true"></span>
+              <span class="myth-timeline__year">1976</span>
+            </button>
+
+            <button class="myth-timeline__node" type="button"
+                    role="tab" id="tl-node-4" aria-controls="tl-panel-4"
+                    aria-selected="false" tabindex="-1">
+              <span class="myth-timeline__dot" aria-hidden="true"></span>
+              <span class="myth-timeline__year">1979</span>
+            </button>
+
+            <button class="myth-timeline__node" type="button"
+                    role="tab" id="tl-node-5" aria-controls="tl-panel-5"
+                    aria-selected="false" tabindex="-1">
+              <span class="myth-timeline__dot" aria-hidden="true"></span>
+              <span class="myth-timeline__year">1996</span>
+            </button>
+
+            <button class="myth-timeline__node" type="button"
+                    role="tab" id="tl-node-6" aria-controls="tl-panel-6"
+                    aria-selected="false" tabindex="-1">
+              <span class="myth-timeline__dot" aria-hidden="true"></span>
+              <span class="myth-timeline__year">2024</span>
+            </button>
+          </div>
+
+          <!-- Expanded panels (one visible at a time) -->
+          <div class="myth-timeline__panels">
+
+            <article class="myth-timeline__panel is-active" role="tabpanel"
+                     id="tl-panel-0" aria-labelledby="tl-node-0">
+              <p class="eyebrow" data-en="1368 · Ming Dynasty" data-zh="1368 · 明朝">1368 · Ming Dynasty</p>
+              <h3>Feng shui practice arrives with southern migrations</h3>
+              <p>The fall of the Yuan dynasty and the founding of the Ming pushes waves of Han families south into the Pearl River Delta and what is now the New Territories. They bring an established geomantic practice — orienting villages, ancestral halls, and graves to harness mountain ridges as dragon veins (<span lang="zh-Hant">龍脈</span>). The walled villages of Ping Shan, Kam Tin, and Lung Yeuk Tau still preserve this Ming-era reading of landscape today.</p>
+            </article>
+
+            <article class="myth-timeline__panel" role="tabpanel" hidden
+                     id="tl-panel-1" aria-labelledby="tl-node-1">
+              <p class="eyebrow" data-en="1847 · Late Qing" data-zh="1847 · 晚清">1847 · Late Qing</p>
+              <h3>Wong Tai Sin worship arrives from Guangdong</h3>
+              <p>A Daoist devotee carries a portrait of Wong Tai Sin (<span lang="zh-Hant">黃大仙</span>), originally a Jinhua shepherd-immortal, from Guangdong into Hong Kong. The figure — known for medical guidance and for granting requests through bamboo-stick divination (<span lang="zh-Hant">求籤</span>) — gradually moves from private home altars to small public shrines. By the 1910s the cult has become one of the most popular folk practices in working-class Cantonese Kowloon.</p>
+            </article>
+
+            <article class="myth-timeline__panel" role="tabpanel" hidden
+                     id="tl-panel-2" aria-labelledby="tl-node-2">
+              <p class="eyebrow" data-en="1921 · Republican era" data-zh="1921 · 民國">1921 · Republican era</p>
+              <h3>Sik Sik Yuen Wong Tai Sin Temple is founded</h3>
+              <p>The Sik Sik Yuen (<span lang="zh-Hant">嗇色園</span>) charitable order builds the first permanent Wong Tai Sin temple at Chuk Yuen Village in Kowloon, on a site chosen by feng shui masters who read its mountain backing and water flow as ideal. Today it draws several million visitors a year for fortune-telling, lunar new-year prayers, and the temple's formal classification of every wish into 100 numbered bamboo sticks.</p>
+            </article>
+
+            <article class="myth-timeline__panel" role="tabpanel" hidden
+                     id="tl-panel-3" aria-labelledby="tl-node-3">
+              <p class="eyebrow" data-en="1976 · Late colonial Hong Kong" data-zh="1976 · 殖民晚期香港">1976 · Late colonial Hong Kong</p>
+              <h3>Country Parks Ordinance creates the protected hiking landscape</h3>
+              <p>The Country Parks Ordinance is enacted, giving statutory protection to roughly forty percent of Hong Kong's land area. Ridges that for centuries had been read as dragon veins — Kowloon Range, Tai Mo Shan, the Pat Sin spine — are now legally walkable, free, and signposted. The ordinance turns folk geography into public infrastructure, and quietly makes Hong Kong one of the world's most hikeable cities.</p>
+            </article>
+
+            <article class="myth-timeline__panel" role="tabpanel" hidden
+                     id="tl-panel-4" aria-labelledby="tl-node-4">
+              <p class="eyebrow" data-en="1979 · Hiking infrastructure" data-zh="1979 · 行山設施">1979 · Hiking infrastructure</p>
+              <h3>The MacLehose Trail opens</h3>
+              <p>Named after Governor Sir Murray MacLehose, the 100 km MacLehose Trail is opened, threading ten stages from Pak Tam Chung in the east to Tuen Mun in the west. It traces the major dragon-vein ridges across Sai Kung, the New Territories, and Tai Mo Shan — letting walkers experience in two days the feng shui logic that shaped centuries of village siting.</p>
+            </article>
+
+            <article class="myth-timeline__panel" role="tabpanel" hidden
+                     id="tl-panel-5" aria-labelledby="tl-node-5">
+              <p class="eyebrow" data-en="1996 · Memorial" data-zh="1996 · 紀念">1996 · Memorial</p>
+              <h3>Pat Sin Leng wildfire — memorial at Hsien Ku Fung</h3>
+              <p>On 10 February 1996, a wildfire on Pat Sin Leng (<span lang="zh-Hant">八仙嶺</span>) traps a school group near Hsien Ku Fung (<span lang="zh-Hant">仙姑峰</span>). Three students and two teachers die shielding the others. A memorial pavilion now stands on the ridge, and the route is permanently re-read as both a feng shui landscape — eight peaks, eight Daoist immortals — and a place of public mourning, walked annually on the anniversary.</p>
+            </article>
+
+            <article class="myth-timeline__panel" role="tabpanel" hidden
+                     id="tl-panel-6" aria-labelledby="tl-node-6">
+              <p class="eyebrow" data-en="2024 · Cultural reclamation" data-zh="2024 · 文化再詮釋">2024 · Cultural reclamation</p>
+              <h3>Country Parks 60th anniversary</h3>
+              <p>Hong Kong marks six decades since the country park system was first planned. The government uses the occasion to publish new bilingual signage that, for the first time, explicitly labels the feng shui readings of major ridges — naming dragon veins and the white-tiger and azure-dragon flanks of Lion Rock — turning a tourism programme into a quiet act of cultural reclamation.</p>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container container--wide footer__inner">
+      <div class="footer__col footer__col--brand">
+        <a href="index.html" class="footer__logo" aria-label="Beyond the Map - Home">
+          <span class="footer__logo-latin">Beyond the Map</span>
+          <span class="footer__logo-chinese" lang="zh-Hant">風水之外</span>
+        </a>
+        <p class="footer__tagline" data-en="A contemplative atlas of Hong Kong's hidden feng shui landscapes." data-zh="一冊安靜的香港風水山水地圖">A contemplative atlas of Hong Kong's hidden feng shui landscapes.</p>
+        <nav aria-label="Footer quick links">
+          <ul class="footer__social" role="list">
+            <li><a href="gallery.html" class="footer__social-link" aria-label="Gallery">GA</a></li>
+            <li><a href="about.html" class="footer__social-link" aria-label="About">AB</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer__col footer__col--nav">
+        <h3 class="footer__col-title" data-en="Explore" data-zh="探索">Explore</h3>
+        <nav aria-label="Footer site map">
+          <ul role="list">
+            <li><a href="index.html" class="footer__link" data-en="Home" data-zh="首頁">Home</a></li>
+            <li><a href="explore.html" class="footer__link" data-en="Explore" data-zh="探索">Explore</a></li>
+            <li><a href="myths.html" class="footer__link" aria-current="page" data-en="Myths &amp; Meanings" data-zh="神話與寓意">Myths &amp; Meanings</a></li>
+            <li><a href="map.html" class="footer__link" data-en="Map" data-zh="地圖">Map</a></li>
+            <li><a href="compare.html" class="footer__link" data-en="Compare" data-zh="比較">Compare</a></li>
+            <li><a href="gallery.html" class="footer__link" data-en="Gallery" data-zh="藝廊">Gallery</a></li>
+            <li><a href="about.html" class="footer__link" data-en="About" data-zh="關於">About</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer__col footer__col--credits">
+        <h3 class="footer__col-title" data-en="Credits" data-zh="製作">Credits</h3>
+        <p class="footer__credit-text"><span data-en="Produced for UOWCHK" data-zh="香港伍倫貢學院製作">Produced for UOWCHK</span><br><span data-en="CGE13220 / AST10962" data-zh="CGE13220 / AST10962">CGE13220 / AST10962</span><br><span data-en="Cultural Tourism &amp; Digital Media" data-zh="文化旅遊與數位媒體">Cultural Tourism &amp; Digital Media</span></p>
+        <p class="footer__credit-text"><span data-en="Design direction: Beyond the Map" data-zh="設計方向：Beyond the Map">Design direction: Beyond the Map</span><br><span data-en="Design System v1.0" data-zh="設計系統 v1.0">Design System v1.0</span></p>
+      </div>
+    </div>
+    <div class="footer__strip">
+      <div class="container container--wide">
+        <p class="footer__copy" data-en="© 2026 Beyond the Map · 風水之外 · UOWCHK CGE13220 / AST10962 · All rights reserved" data-zh="© 2026 Beyond the Map · 風水之外 · UOWCHK CGE13220 / AST10962 · 版權所有">© 2026 Beyond the Map&nbsp;·&nbsp;<span lang="zh-Hant">風水之外</span>&nbsp;·&nbsp;UOWCHK CGE13220 / AST10962&nbsp;·&nbsp;All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <script src="main.js"></script>
+  <script src="glossary.js"></script>
+</body>
+</html>
