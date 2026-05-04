@@ -1,0 +1,4 @@
+User-agent: *
+   Allow: /
+
+   Sitemap: https://brianchen12140922.github.io/beyond-the-map/sitemap.xml
